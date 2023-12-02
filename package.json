@@ -1,0 +1,30 @@
+{
+  "name": "enclave",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Enclave-LLC/enclave.git",
+  "author": "Amos Aidoo <aidooamos20@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "postinstall": "husky install"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0"
+  },
+  "lint-staged": {
+    "**/*.+(js|jsx|ts|tsx|json|css)": [
+      "yarn lint"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3"
+  }
+}

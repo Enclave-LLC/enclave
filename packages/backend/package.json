@@ -1,0 +1,47 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "enclave backend",
+  "main": "index.ts",
+  "repository": "https://github.com/Enclave-LLC/enclave",
+  "author": "Amos Aidoo",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon index.ts",
+    "start": "tsc && node --unhandled-rejections=strict ./dist/index.js",
+    "debug": "export DEBUG=* && yarn dev",
+    "start:deploy": "prisma migrate deploy && yarn start"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.6.0",
+    "@types/cookie-parser": "^1.4.6",
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.10.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "morgan": "^1.10.0",
+    "prettier": "^3.1.0",
+    "prisma": "^5.6.0",
+    "socket.io": "^4.7.2",
+    "stripe": "^14.7.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2",
+    "uuidv4": "^6.2.13",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "^3.1.0"
+  }
+}
