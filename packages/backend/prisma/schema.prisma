@@ -10,8 +10,52 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+enum ClientType {
+  individual
+  business
+}
+
+model Client {
+  id          String        @id @default(uuid())
+  type        ClientType
+  Booking     Booking[]
+  SpaceReview SpaceReview[]
+}
+
+model Booking {
+  id        String   @id @default(uuid())
+  client    Client   @relation(fields: [clientId], references: [id])
+  space     Space    @relation(fields: [spaceId], references: [id])
+  startDate DateTime
+  endDate   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  clientId  String
+  spaceId   String
+
+  @@index([createdAt])
+}
+
+model SpaceOwner {
+  id     String  @id @default(uuid())
+  spaces Space[]
+}
+
+model SpaceReview {
+  id       String @id @default(uuid())
+  reviewer Client @relation(fields: [clientId], references: [id])
+  space    Space  @relation(fields: [spaceId], references: [id])
+  clientId String
+  spaceId  String
+}
+
+model Space {
+  id           String        @id @default(uuid())
+  location     Json
+  capacity     Int?
+  facilities   Json?
+  spaceOwner   SpaceOwner?   @relation(fields: [spaceOwnerId], references: [id])
+  spaceOwnerId String?
+  Booking      Booking[]
+  SpaceReview  SpaceReview[]
 }
