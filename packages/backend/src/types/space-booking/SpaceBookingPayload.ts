@@ -1,5 +1,5 @@
 interface SpaceBookingPayload {
-  clientId: string
+  customerId: string
   spaceId: string
   startDate: Date
   endDate: Date

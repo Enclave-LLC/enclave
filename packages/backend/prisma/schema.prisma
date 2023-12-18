@@ -10,43 +10,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum ClientType {
+enum CustomerType {
   individual
   business
 }
 
-model Client {
+model Customer {
   id          String        @id @default(uuid())
-  type        ClientType
+  type        CustomerType
   Booking     Booking[]
   SpaceReview SpaceReview[]
 }
 
 model Booking {
-  id        String   @id @default(uuid())
-  client    Client   @relation(fields: [clientId], references: [id])
-  space     Space    @relation(fields: [spaceId], references: [id])
-  startDate DateTime
-  endDate   DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  clientId  String
-  spaceId   String
+  id         String   @id @default(uuid())
+  customer   Customer @relation(fields: [customerId], references: [id])
+  space      Space    @relation(fields: [spaceId], references: [id])
+  startDate  DateTime
+  endDate    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  customerId   String
+  spaceId    String
 
   @@index([createdAt])
 }
 
-model SpaceOwner {
+model Vendor {
   id     String  @id @default(uuid())
   spaces Space[]
 }
 
 model SpaceReview {
-  id       String @id @default(uuid())
-  reviewer Client @relation(fields: [clientId], references: [id])
-  space    Space  @relation(fields: [spaceId], references: [id])
-  clientId String
-  spaceId  String
+  id         String   @id @default(uuid())
+  reviewer   Customer @relation(fields: [customerId], references: [id])
+  space      Space    @relation(fields: [spaceId], references: [id])
+  spaceId    String
+  customerId String
 }
 
 model Space {
@@ -54,8 +54,9 @@ model Space {
   location     Json
   capacity     Int?
   facilities   Json?
-  spaceOwner   SpaceOwner?   @relation(fields: [spaceOwnerId], references: [id])
+  vendor       Vendor        @relation(fields: [vendorId], references: [id])
   spaceOwnerId String?
   Booking      Booking[]
   SpaceReview  SpaceReview[]
+  vendorId     String
 }

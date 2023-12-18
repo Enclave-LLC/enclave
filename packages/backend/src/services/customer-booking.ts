@@ -1,13 +1,13 @@
 import logger from "../../lib/logger"
 import db from "../db"
 import { ApiResponse, HttpStatusCodes } from "../types"
-import { ClientBookingPatchPayload } from "../types/client-booking"
+import { CustomerBookingPatchPayload } from "../types/customer-booking"
 
-const getBookings = async (clientId: string): Promise<ApiResponse<unknown>> => {
+const getBookings = async (customerId: string): Promise<ApiResponse<unknown>> => {
   try {
     const bookings = db.booking.findMany({
       where: {
-        clientId: clientId
+        customerId: customerId
       },
       select: {
         spaceId: true,
@@ -30,15 +30,15 @@ const getBookings = async (clientId: string): Promise<ApiResponse<unknown>> => {
 }
 
 const patchBooking = async (
-  clientId: string,
+  customerId: string,
   bookingId: string,
-  payload: ClientBookingPatchPayload
+  payload: CustomerBookingPatchPayload
 ): Promise<ApiResponse<unknown>> => {
   try {
     await db.booking.update({
       where: {
         id: bookingId,
-        clientId: clientId
+        customerId: customerId
       },
       data: {
         startDate: payload.startDate,
@@ -58,12 +58,12 @@ const patchBooking = async (
   }
 }
 
-const deleteBoooking = async (clientId: string, bookingId: string): Promise<ApiResponse<unknown>> => {
+const deleteBoooking = async (customerId: string, bookingId: string): Promise<ApiResponse<unknown>> => {
   try {
     await db.booking.delete({
       where: {
         id: bookingId,
-        clientId: clientId
+        customerId: customerId
       }
     })
     return {

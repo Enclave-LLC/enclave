@@ -1,22 +1,22 @@
 import { Request, Response } from "express"
-import { ClientBookingService } from "../services"
+import { CustomerBookingService } from "../services"
 
 const getBookings = async (req: Request, res: Response) => {
-  const { clientId } = req.params
-  const response = await ClientBookingService.getBookings(clientId)
+  const { customerId } = req.params
+  const response = await CustomerBookingService.getBookings(customerId)
   res.status(response.code).json(response)
 }
 
 const patchBooking = async (req: Request, res: Response) => {
-  const { clientId, bookingId } = req.params
+  const { customerId, bookingId } = req.params
   const patchBookingPayload = req.body
-  const response = await ClientBookingService.patchBooking(clientId, bookingId, patchBookingPayload)
+  const response = await CustomerBookingService.patchBooking(customerId, bookingId, patchBookingPayload)
   res.status(response.code).json(response)
 }
 
 const deleteBoooking = async (req: Request, res: Response) => {
-  const { clientId, bookingId } = req.params
-  const response = await ClientBookingService.deleteBoooking(clientId, bookingId)
+  const { customerId, bookingId } = req.params
+  const response = await CustomerBookingService.deleteBoooking(customerId, bookingId)
   res.status(response.code).json(response)
 }
 

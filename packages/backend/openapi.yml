@@ -9,13 +9,13 @@ servers:
     description: Main (production) server
 
 paths:
-  /client/{clientId}/booking:
+  /customer/{customerId}/booking:
     get:
-      summary: List all the client's current bookings
-      description: Returns a list of all the client's current bookings
-      operationId: getClientBookings
+      summary: List all the customer's current bookings
+      description: Returns a list of all the customer's current bookings
+      operationId: getCustomerBookings
       tags:
-        - Client Booking
+        - customer Booking
       responses:
         '200':
           description: A JSON array of user names
@@ -26,13 +26,13 @@ paths:
                 items: 
                   type: string
 
-  /client/{clientId}/booking/{bookingId}:  
+  /customer/{customerId}/booking/{bookingId}:  
     patch:
       summary: Update unapproved booking
       description: Update given unapproved booking
-      operationId: patchClientBooking
+      operationId: patchCustomerBooking
       tags:
-        - Client Booking
+        - customer Booking
       responses:
         '200':
           description: A JSON array of user names
@@ -46,9 +46,9 @@ paths:
     delete:
       summary: Cancel unapproved booking
       description: Cancel given unapproved booking
-      operationId: deleteClientBooking
+      operationId: deleteCustomerBooking
       tags:
-        - Client Booking
+        - customer Booking
       responses:
         '200':
           description: A JSON array of user names
@@ -62,7 +62,7 @@ paths:
   /space/{spaceId}:
     post:
       summary: Creates a booking request for a space
-      description: Book a space for a given client
+      description: Book a space for a given customer
       responses:
         '200':
           description: A JSON array of user names
@@ -74,8 +74,8 @@ paths:
                   type: string
 
 tags:
-  - name: Client Booking
-    description: Every relationship between a client and booking
+  - name: customer Booking
+    description: Every relationship between a customer and booking
 
 components:
   schemas:

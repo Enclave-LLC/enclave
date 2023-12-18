@@ -1,4 +1,4 @@
 import SpaceBookingService from "./space-booking"
-import ClientBookingService from "./client-booking"
+import CustomerBookingService from "./customer-booking"
 
-export { SpaceBookingService, ClientBookingService }
+export { SpaceBookingService, CustomerBookingService }

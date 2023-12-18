@@ -1,4 +1,4 @@
 import SpaceBookingController from "./space-booking"
-import ClientBookingController from "./client-booking"
+import CustomerBookingController from "./customer-booking"
 
-export { SpaceBookingController, ClientBookingController }
+export { SpaceBookingController, CustomerBookingController }

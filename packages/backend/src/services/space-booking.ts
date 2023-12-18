@@ -8,7 +8,7 @@ const createNewBooking = async (payload: SpaceBookingPayload): Promise<ApiRespon
   try {
     const newBooking = await db.booking.create({
       data: {
-        clientId: payload.clientId,
+        customerId: payload.customerId,
         spaceId: payload.spaceId,
         startDate: payload.startDate,
         endDate: payload.endDate
