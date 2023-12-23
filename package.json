@@ -7,6 +7,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "dev:web": "yarn workspace component-library build && yarn workspace web dev",
+    "storybook:component-library": "yarn workspace component-library storybook",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "postinstall": "husky install"

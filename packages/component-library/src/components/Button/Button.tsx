@@ -1,10 +1,11 @@
-import "./button.css"
+import { Loader2 } from "lucide-react"
+import { Button as RawButton } from "../ui/button"
 
 interface ButtonProps {
   /**
    * Is this the principal call to action on the page?
    */
-  primary?: boolean
+  variant?: "default" | "secondary"
   /**
    * What background color to use
    */
@@ -12,7 +13,7 @@ interface ButtonProps {
   /**
    * How large should the button be?
    */
-  size?: "small" | "medium" | "large"
+  size?: "default" | "sm" | "lg"
   /**
    * Button contents
    */
@@ -21,22 +22,25 @@ interface ButtonProps {
    * Optional click handler
    */
   onClick?: () => void
+  /**
+   * Is button disabled?
+   */
+  disabled?: boolean
+  /**
+   * Show loading state
+   */
+  loading?: boolean
+  className?: string
 }
 
 /**
  * Primary UI component for user interaction
  */
-const Button = ({ primary = false, size = "medium", backgroundColor, label, ...props }: ButtonProps) => {
-  const mode = primary ? "storybook-button--primary" : "storybook-button--secondary"
+const Button = ({ variant = "default", size = "default", disabled, loading, label, ...props }: ButtonProps) => {
   return (
-    <button
-      type="button"
-      className={["storybook-button", `storybook-button--${size}`, mode].join(" ")}
-      style={{ backgroundColor }}
-      {...props}
-    >
-      {label}
-    </button>
+    <RawButton type="button" variant={variant} size={size} disabled={disabled} {...props}>
+      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} {label}
+    </RawButton>
   )
 }
 
