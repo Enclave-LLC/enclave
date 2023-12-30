@@ -1,5 +1,21 @@
-import { Button, Input } from "component-library"
+import { Button } from "component-library"
 import roundedDoughnut from "../assets/svg/rounded-doughnut.svg"
+
+import worldLocation from "../assets/gifs/world-location.gif"
+import enclaveSecured from "../assets/gifs/enclave-secured.gif"
+
+import heroBackground from "../assets/png/hero-background.png"
+import rocket from "../assets/png/rocket.png"
+import leftCloud from "../assets/png/left-cloud.png"
+import rightCloud from "../assets/png/right-cloud.png"
+import buttomCloud from "../assets/png/bottom-cloud.png"
+import rightUpArrow from "../assets/png/arrow-right-up-line.png"
+// import englishFlag from "../assets/png/english-flag.png"
+
+import JoinWaitlistInput from "../components/JoinWaitlistInput"
+import ShareDialog from "../components/ShareDialog"
+import { useState } from "react"
+import { EnclaveIcon, FacebookIcon, LinkedinIcon, XIcon } from "../components/icons"
 
 const whatAwaitsYou = [
   {
@@ -23,85 +39,253 @@ const whatAwaitsYou = [
 ]
 
 const Waitlist = () => {
+  const [openDialog, setOpenDialog] = useState(false)
   return (
     <>
       <div className="p-4">
-        <div className=" rounded bg-secondary p-4"></div>
+        <div className=" rounded p-4" style={{ backgroundColor: "#F7F7F8" }}>
+          <nav className="flex justify-between border-b border-secondary pb-4">
+            <div className="flex justify-center" style={{ fontFamily: "'Inter', sans-serif" }}>
+              <div>
+                <EnclaveIcon color="primary" />
+              </div>
+              <div className="ml-2 flex content-center -mt-[1px]">
+                <p className="text-primary text-xl font-bold">
+                  <span>enclave</span>
+                </p>
+              </div>
+            </div>
+            <div>
+              <Button label="Join Waitlist" style={{ backgroundColor: "#DEDEDE", color: "black" }} />
+            </div>
+            <div>
+              <Button className="shadow" style={{ backgroundColor: "white", color: "black" }}>
+                ENG
+              </Button>
+            </div>
+          </nav>
+
+          <div className="flex justify-center text-center pt-28">
+            <div>
+              <div>
+                <img
+                  className="mx-auto"
+                  style={{ width: "250px", height: "auto" }}
+                  src={worldLocation}
+                  alt="Animated World Location"
+                />
+              </div>
+
+              <h1 className="text-5xl font-bold">
+                Elevate Your Events
+                <br /> with <span className="text-primary">Enclave</span>
+              </h1>
+
+              <p className="my-6 text-lg font-semibold">
+                Step into Enclave, where the magic of flawless event planning unfolds
+              </p>
+
+              <div className="w-10/12 mx-auto">
+                <JoinWaitlistInput />
+              </div>
+            </div>
+          </div>
+          <div className=" -mt-8">
+            <img src={heroBackground} alt="Hero Background" />
+          </div>
+        </div>
       </div>
 
       {/* Why choose Enclave */}
-      <div className="pt-10 pb-16 text-center">
-        <h1>
+      <div className="pt-10 pb-24 px-36 text-center relative">
+        <img
+          className="absolute left-0 -z-10"
+          style={{ width: "200px", height: "auto" }}
+          src={leftCloud}
+          alt="Left cloud"
+        />
+        <img
+          className="absolute right-0 bottom-10 -z-10"
+          style={{ width: "200px", height: "auto" }}
+          src={buttomCloud}
+          alt="Buttom cloud"
+        />
+        <h1 className="text-5xl font-semibold">
           Why choose <span className=" text-primary">Enclave</span>
         </h1>
 
-        <p className=" mt-6 w-6/12 mx-auto">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita doloribus tempore fugit eaque ratione
-          obcaecati at, nisi rerum architecto accusantium perferendis aut, optio eum commodi tenetur minus similique
-          aliquid dignissimos!
+        <p className=" mt-10 w-11/12 mx-auto text-lg font-bold">
+          Experience a revolution in event planning with Enclave - your key to effortlessly connecting with dream event
+          spaces. Bid farewell to event planning hassles and say hello to endless possibilities!
         </p>
 
-        <div className=" mt-6 rounded px-12 py-8 flex bg-primary w-9/12 mx-auto text-white">
+        <div className=" mt-6 rounded-lg px-12 py-8 flex bg-primary mx-auto bg-[url('/src/assets/png/enclave-logo-and-shapes.png')] bg-no-repeat bg-right bg-[length:500px_auto]">
           <div className=" grid grid-cols-3">
             <div className=" col-span-2">
               <div className=" flex flex-col">
-                <h3>Join the Waitlist - Your VIP Pass!</h3>
-                <p>
+                <h3 className="text-white text-left uppercase tracking-wider">Join the Waitlist - Your VIP Pass!</h3>
+                <p className="text-white text-2xl font-bold text-left my-6">
                   Be among the pioneers to explore Enclave's groundbreaking features. Secure your early access by
                   joining our exclusive waitlist today. Your dream events are on the horizon
                 </p>
-                <div>
-                  <Input placeholder="Email" showLocationIcon button={{ label: "Join Now" }} />
+                <div className="w-9/12">
+                  <JoinWaitlistInput />
                 </div>
               </div>
             </div>
-            <div className=" col-span-1"></div>
+            <div className="col-span-1 flex justify-center">
+              {/* <img
+                style={{ width: "200px", height: "auto" }}
+                src={enclaveLarge}
+                alt="Large enclave logo with gradient"
+              /> */}
+            </div>
           </div>
-
-          <div>Image</div>
         </div>
       </div>
 
-      <div className="py-10 px-16 bg-secondary grid grid-cols-12">
-        <div className=" col-span-8">
-          <h5>Join the millions</h5>
-          <h1 className=" text-3xl font-bold">
-            <span className="text-primary">Spread</span> The Excitement
-          </h1>
-          <p>
-            Help us build the Enclave community! <br />
-            Share the news with friends, family, and colleagues. <br /> Let's create a buzz together and redefine the
-            future of event planning.
-          </p>
+      <div className="py-10 px-36 bg-secondary grid grid-cols-12">
+        <div className="col-span-8 flex content-center">
+          <div className="my-auto">
+            <h5 className="text-lg">Join the millions</h5>
+            <h1 className=" text-5xl font-bold my-2">
+              <span className="text-primary">Spread</span> The Excitement
+            </h1>
+            <p className="font-bold my-6 text-lg">
+              Help us build the Enclave community! <br />
+              Share the news with friends, family, and colleagues. <br /> Let's create a buzz together and redefine the
+              future of event planning.
+            </p>
+            <div>
+              <Button
+                children={
+                  <>
+                    <div className="flex gap-2 justify-center content-center">
+                      <span className="-mt-[1px]">
+                        <XIcon width="13" height="14" color="primary" />
+                      </span>
+                      <span className="-mt-1">
+                        <FacebookIcon width="19" height="19" color="primary" />
+                      </span>
+                      <span className="-mt-1">
+                        <LinkedinIcon width="19" height="19" color="primary" />
+                      </span>
+                    </div>
+                    <div className="ml-2 -mt-[1px]">Spread the word</div>
+                    <div className="ml-2">
+                      <img style={{ width: "16px", height: "auto" }} src={rightUpArrow} alt="arrow right up line" />
+                    </div>
+                  </>
+                }
+                className="shadow"
+                style={{ backgroundColor: "white", color: "black" }}
+                onClick={() => setOpenDialog(true)}
+              />
+            </div>
+            <ShareDialog title="Share" open={openDialog} setOpen={setOpenDialog} />
+          </div>
         </div>
 
-        <div className=" col-span-4">Image</div>
+        <div className=" col-span-4 flex justify-end">
+          <img src={rocket} style={{ width: "320px", height: "auto" }} alt="Rocket" />
+        </div>
       </div>
 
       {/* What awaits you */}
-      <div className="">
-        <h1 className=" text-3xl font-bold pt-10 px-16 text-center">
-          What Awaits You on
-          <span className="text-primary"> Enclave!</span>
-        </h1>
+      <div className="pt-24 px-36">
+        <div className="flex justify-between">
+          <div>
+            <img style={{ width: "200px", height: "auto" }} src={leftCloud} alt="Left cloud" />
+          </div>
+          <h1 className=" text-[44px] font-semibold pt-10 text-center">
+            What Awaits You on
+            <span className="text-primary"> Enclave!</span>
+          </h1>
+          <div>
+            <img style={{ width: "200px", height: "auto" }} src={rightCloud} alt="Right cloud" />
+          </div>
+        </div>
 
-        <div className="py-24 grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 gap-10">
           {whatAwaitsYou.map((data) => (
             <div>
               <div>
-                <img src={roundedDoughnut} alt="Rounded Doughnut" />
+                <img style={{ width: "82px", height: "auto" }} src={roundedDoughnut} alt="Rounded Doughnut" />
               </div>
-              <p>{data.text}</p>
+              <p className="font-bold">{data.text}</p>
             </div>
           ))}
         </div>
       </div>
 
+      {/* Enclave Secured */}
+      <div className="flex justify-center">
+        <div>
+          <div className="flex">
+            <div>
+              <img style={{ width: "140px", height: "auto" }} src={enclaveSecured} alt="enclave secured" />
+            </div>
+            <div className="-ml-12 flex">
+              <p className="my-auto text-xl">
+                <span className="text-primary">enclave</span>secured
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Join the Enclave waitlist */}
+      <div className="text-center my-8">
+        <h1
+          style={{ WebkitTextStrokeWidth: "1px", WebkitTextStrokeColor: "#16A34A", marginBottom: "-72px" }}
+          className="text-white font-extrabold text-[72px]"
+        >
+          Join The Enclave Waitlist Now
+        </h1>
+        <h1 className="text-primary font-extrabold text-[72px] relative z-10">Join The Enclave Waitlist Now</h1>
+        <h1
+          style={{ WebkitTextStrokeWidth: "1px", WebkitTextStrokeColor: "#16A34A", marginTop: "-82px" }}
+          className="text-white font-extrabold text-[72px]"
+        >
+          Join The Enclave Waitlist Now
+        </h1>
+      </div>
+
+      <div className="mb-24">
+        <p className="text-center font-bold w-6/12 mx-auto">
+          Don't miss out on the event revolution. Join the Enclave waitlist now and be the first to unlock a new era of
+          event planning. Your perfect event space is just a click away!
+        </p>
+
+        <div className="w-4/12 mx-auto mt-12">
+          <JoinWaitlistInput />
+        </div>
+      </div>
+
       {/* Footer */}
       <footer className="py-10 px-20 bg-black text-white">
-        <div className=" flex justify-center border-b-2 pb-10">
+        <div className="flex justify-center border-b-2 pb-10">
           <div>
-            <Button variant="secondary" label="Send Us a Mail" />
+            <div className="flex justify-center" style={{ fontFamily: "'Inter', sans-serif" }}>
+              <div>
+                <EnclaveIcon color="white" />
+              </div>
+              <div className="ml-2 flex content-center -mt-1">
+                <p className="text-xl font-bold">
+                  <span>enclave</span>
+                </p>
+              </div>
+            </div>
+            <Button variant="secondary" className="my-4" label="Send Us a Mail" />
+            <div className="flex gap-6 justify-center">
+              <XIcon width="22" height="24" color="white" />
+              <span className="-mt-1">
+                <FacebookIcon width="32" height="32" color="white" />
+              </span>
+              <span className="-mt-1">
+                <LinkedinIcon width="32" height="32" color="white" />
+              </span>
+            </div>
           </div>
         </div>
         <div className="pt-10 flex justify-between">

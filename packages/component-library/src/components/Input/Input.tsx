@@ -1,19 +1,18 @@
 import classnames from "classnames"
 import { Button } from ".."
 import { Input as RawInput } from "../ui/input"
+import { Button as RawButton } from "../ui/button"
 import locationGIF from "../../assets/gifs/location.gif"
 
-interface InputProps {
-  placeholder?: string
-  full?: boolean
+interface InputProps extends React.ComponentPropsWithoutRef<typeof RawInput> {
   showLocationIcon?: boolean
-  button?: {
+  button?: React.ComponentPropsWithoutRef<typeof RawButton> & {
     label: string
-    variant?: "default" | "secondary"
+    loading?: boolean
   }
 }
 
-const Input = ({ placeholder, showLocationIcon = false, button, ...props }: InputProps) => {
+const Input = ({ showLocationIcon = false, button, ...props }: InputProps) => {
   return (
     <div className=" relative">
       {showLocationIcon && (
@@ -21,12 +20,13 @@ const Input = ({ placeholder, showLocationIcon = false, button, ...props }: Inpu
           <img src={locationGIF} alt="loading..." />
         </span>
       )}
-      <RawInput className={classnames("p-6", { "pl-14": showLocationIcon })} placeholder={placeholder} {...props} />
+      <RawInput className={classnames(props.className, "p-6", { "pl-14": showLocationIcon })} {...props} />
       {button && (
         <Button
           className=" absolute inset-y-0 right-2 top-1/2 transform -translate-y-1/2 "
+          {...button}
           label={button.label}
-          variant={button.variant}
+          loading={button.loading}
         />
       )}
     </div>

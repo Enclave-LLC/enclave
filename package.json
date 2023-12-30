@@ -8,6 +8,7 @@
   "private": true,
   "scripts": {
     "dev:web": "yarn workspace component-library build && yarn workspace web dev",
+    "build:web": "yarn workspace component-library build && yarn workspace web build",
     "storybook:component-library": "yarn workspace component-library storybook",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
