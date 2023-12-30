@@ -7,6 +7,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "dev:web": "yarn workspace component-library build && yarn workspace web dev",
+    "build:web": "yarn workspace component-library build && yarn workspace web build",
+    "storybook:component-library": "yarn workspace component-library storybook",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "postinstall": "husky install"
@@ -16,10 +19,17 @@
   ],
   "dependencies": {
     "husky": "^8.0.3",
-    "lint-staged": "^15.1.0"
+    "lint-staged": "^15.1.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "^3.1.0"
   },
   "lint-staged": {
-    "**/*.+(js|jsx|ts|tsx|json|css)": [
+    "**/*.+(js|jsx|ts|tsx|json)": [
       "yarn lint"
     ]
   },
