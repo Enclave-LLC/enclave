@@ -12,7 +12,7 @@ interface InputProps extends React.ComponentPropsWithoutRef<typeof RawInput> {
   }
 }
 
-const Input = ({ showLocationIcon = false, button, ...props }: InputProps) => {
+const Input = ({ showLocationIcon = false, className, button, ...props }: InputProps) => {
   return (
     <div className=" relative">
       {showLocationIcon && (
@@ -20,7 +20,7 @@ const Input = ({ showLocationIcon = false, button, ...props }: InputProps) => {
           <img src={locationGIF} alt="loading..." />
         </span>
       )}
-      <RawInput className={classnames(props.className, "p-6", { "pl-14": showLocationIcon })} {...props} />
+      <RawInput className={classnames(className, `p-6`, { "pl-14": showLocationIcon })} {...props} />
       {button && (
         <Button
           className=" absolute inset-y-0 right-2 top-1/2 transform -translate-y-1/2 "
