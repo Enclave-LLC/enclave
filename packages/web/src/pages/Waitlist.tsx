@@ -16,6 +16,7 @@ import JoinWaitlistInput from "../components/JoinWaitlistInput"
 import ShareDialog from "../components/ShareDialog"
 import { useState } from "react"
 import { EnclaveIcon, FacebookIcon, LinkedinIcon, XIcon } from "../components/icons"
+import GetSpaceForm from "../components/GetSpaceForm"
 
 const whatAwaitsYou = [
   {
@@ -66,7 +67,7 @@ const Waitlist = () => {
           </nav>
 
           <div className="flex justify-center text-center pt-28">
-            <div>
+            <div className="w-6/12">
               <div>
                 <img
                   className="mx-auto"
@@ -81,16 +82,14 @@ const Waitlist = () => {
                 <br /> with <span className="text-primary">Enclave</span>
               </h1>
 
-              <p className="my-6 text-lg font-semibold">
-                Step into Enclave, where the magic of flawless event planning unfolds
-              </p>
+              <p className="my-6 text-lg font-semibold">Book your space now by sharing your event details below.</p>
 
-              <div className="w-10/12 mx-auto">
-                <JoinWaitlistInput />
+              <div className="mx-auto">
+                <GetSpaceForm />
               </div>
             </div>
           </div>
-          <div className=" -mt-8">
+          <div className=" -mt-28">
             <img src={heroBackground} alt="Hero Background" />
           </div>
         </div>
