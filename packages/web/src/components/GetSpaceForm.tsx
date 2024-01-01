@@ -128,7 +128,6 @@ const GetSpaceForm = () => {
                 </S.Select>
               )}
             />
-            {errors.location?.message}
           </div>
         </div>
 
@@ -149,7 +148,6 @@ const GetSpaceForm = () => {
               />
             )}
           />
-          {/* {errors.email && <span className="text-red-500">{errors.email.message}</span>} */}
           <Controller
             name="phone"
             control={control}
