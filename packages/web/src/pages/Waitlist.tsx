@@ -56,10 +56,10 @@ const Waitlist = () => {
                 </p>
               </div>
             </div>
-            <div>
+            <div className="hidden lg:block">
               <Button label="Join Waitlist" style={{ backgroundColor: "#DEDEDE", color: "black" }} />
             </div>
-            <div>
+            <div className="hidden lg:block">
               <Button className="shadow" style={{ backgroundColor: "white", color: "black" }}>
                 ENG
               </Button>
@@ -67,7 +67,7 @@ const Waitlist = () => {
           </nav>
 
           <div className="flex justify-center text-center pt-28">
-            <div className="w-6/12">
+            <div className="lg:w-6/12">
               <div>
                 <img
                   className="mx-auto"
@@ -77,12 +77,12 @@ const Waitlist = () => {
                 />
               </div>
 
-              <h1 className="text-5xl font-bold">
+              <h1 className=" text-4xl lg:text-5xl font-bold">
                 Elevate Your Events
                 <br /> with <span className="text-primary">Enclave</span>
               </h1>
 
-              <p className="my-6 text-lg font-semibold">Book your space now by sharing your event details below.</p>
+              <p className="my-6 lg:text-lg font-semibold">Book your space now by sharing your event details below.</p>
 
               <div className="mx-auto">
                 <GetSpaceForm />
@@ -96,20 +96,20 @@ const Waitlist = () => {
       </div>
 
       {/* Why choose Enclave */}
-      <div className="pt-10 pb-24 px-36 text-center relative">
+      <div className="pt-10 pb-24 px-8 lg:px-36 text-center relative">
         <img
-          className="absolute left-0 -z-10"
+          className="absolute -left-20 lg:left-0 -z-10"
           style={{ width: "200px", height: "auto" }}
           src={leftCloud}
           alt="Left cloud"
         />
         <img
-          className="absolute right-0 bottom-10 -z-10"
+          className="absolute -right-20 lg:right-0 bottom-10 -z-10"
           style={{ width: "200px", height: "auto" }}
           src={buttomCloud}
           alt="Buttom cloud"
         />
-        <h1 className="text-5xl font-semibold">
+        <h1 className="text-2xl lg:text-5xl font-semibold">
           Why choose <span className=" text-primary">Enclave</span>
         </h1>
 
