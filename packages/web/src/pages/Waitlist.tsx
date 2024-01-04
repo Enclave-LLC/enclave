@@ -308,7 +308,7 @@ const Waitlist = () => {
         </div>
         <div className="pt-10 flex justify-between">
           <div>
-            <Button className="shadow -mt-14 sm:-mt-5" style={{ backgroundColor: "white" }}>
+            <Button className="shadow -mt-8 sm:-mt-5" style={{ backgroundColor: "white" }}>
               <img src={englishFlag} width={15} height="auto" alt="English flag" />
               <span className="text-primary ml-1 mr-1">ENG</span>
               <img src={globalLine} alt="English flag" />
