@@ -65,8 +65,8 @@ const GetSpaceForm = () => {
   return (
     <>
       <form onSubmit={handleSubmit(handleJoinWaitlist)}>
-        <div className="grid grid-cols-3 justify-center gap-8">
-          <div>
+        <div className="grid grid-cols-4 sm:grid-cols-3 justify-center gap-4 sm:gap-8">
+          <div className="col-span-2 sm:col-span-1">
             <Controller
               name="guests"
               control={control}
@@ -87,7 +87,7 @@ const GetSpaceForm = () => {
               )}
             />
           </div>
-          <div>
+          <div className="col-span-2 sm:col-span-1">
             <Controller
               name="spaceType"
               control={control}
@@ -108,7 +108,7 @@ const GetSpaceForm = () => {
               )}
             />
           </div>
-          <div>
+          <div className=" col-start-2 sm:col-start-3 col-span-2 sm:col-span-1">
             <Controller
               name="location"
               control={control}
@@ -168,7 +168,7 @@ const GetSpaceForm = () => {
         <div>
           <Button
             className="relative z-10"
-            label="Get a space"
+            label="Book Space"
             type="submit"
             loading={isSubmitting}
             disabled={isSubmitting}
