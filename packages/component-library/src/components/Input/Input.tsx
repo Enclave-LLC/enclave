@@ -6,13 +6,14 @@ import locationGIF from "../../assets/gifs/location.gif"
 
 interface InputProps extends React.ComponentPropsWithoutRef<typeof RawInput> {
   showLocationIcon?: boolean
+  h?: number
   button?: React.ComponentPropsWithoutRef<typeof RawButton> & {
     label: string
     loading?: boolean
   }
 }
 
-const Input = ({ showLocationIcon = false, className, button, ...props }: InputProps) => {
+const Input = ({ showLocationIcon = false, h = 10, className, button, ...props }: InputProps) => {
   return (
     <div className=" relative">
       {showLocationIcon && (
@@ -20,7 +21,7 @@ const Input = ({ showLocationIcon = false, className, button, ...props }: InputP
           <img src={locationGIF} alt="loading..." />
         </span>
       )}
-      <RawInput className={classnames(className, `p-6`, { "pl-14": showLocationIcon })} {...props} />
+      <RawInput className={classnames(className, { "p-6 h-10": h == 10 }, { "pl-14": showLocationIcon })} {...props} />
       {button && (
         <Button
           className=" absolute inset-y-0 right-2 top-1/2 transform -translate-y-1/2 "
