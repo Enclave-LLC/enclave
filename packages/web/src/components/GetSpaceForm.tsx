@@ -20,7 +20,8 @@ const FormSchema = z.object({
   phone: z.string(),
   guests: z.string(),
   spaceType: z.string(),
-  location: z.string()
+  location: z.string(),
+  manual_location: z.string()
 })
 
 const GetSpaceForm = () => {
@@ -28,6 +29,8 @@ const GetSpaceForm = () => {
 
   const {
     control,
+    watch,
+    setValue,
     handleSubmit,
     reset,
     formState,
@@ -38,7 +41,7 @@ const GetSpaceForm = () => {
 
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
-      reset({ email: "", guests: "", location: "", phone: "", spaceType: "" })
+      reset({ email: "", guests: "", location: "", phone: "", spaceType: "", manual_location: "" })
     }
   }, [formState, reset])
 
@@ -82,6 +85,9 @@ const GetSpaceForm = () => {
                   </S.SelectTrigger>
                   <S.SelectContent>
                     <S.SelectItem value="10 - 20">10 - 20</S.SelectItem>
+                    <S.SelectItem value="21 - 50">21 - 50</S.SelectItem>
+                    <S.SelectItem value="51 - 100">51 - 100</S.SelectItem>
+                    <S.SelectItem value="100+">100+</S.SelectItem>
                   </S.SelectContent>
                 </S.Select>
               )}
@@ -102,32 +108,74 @@ const GetSpaceForm = () => {
                     <S.SelectValue placeholder="Space type" className="shadow-lg" />
                   </S.SelectTrigger>
                   <S.SelectContent>
-                    <S.SelectItem value="Wedding">Wedding</S.SelectItem>
+                    <S.SelectItem value="Wedding">Wedding Venue</S.SelectItem>
+                    <S.SelectItem value="Seminar Room">Business Meeting</S.SelectItem>
+                    <S.SelectItem value="Conference Room">Conference</S.SelectItem>
+                    <S.SelectItem value="Coworking Space">Coworking Space</S.SelectItem>
+                    <S.SelectItem value="Club">Club</S.SelectItem>
                   </S.SelectContent>
                 </S.Select>
               )}
             />
           </div>
-          <div className=" col-start-2 sm:col-start-3 col-span-2 sm:col-span-1">
-            <Controller
-              name="location"
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <S.Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <S.SelectTrigger
-                    className={classnames("shadow-lg text-[#C6C6C6]", {
-                      "border-red-500 border-2 focus-visible:ring-0": errors.location
-                    })}
-                  >
-                    <S.SelectValue placeholder="Location" />
-                  </S.SelectTrigger>
-                  <S.SelectContent>
-                    <S.SelectItem value="Accra">Accra</S.SelectItem>
-                  </S.SelectContent>
-                </S.Select>
-              )}
-            />
+          <div className="col-start-1 sm:col-start-2 md:col-start-3 col-span-4 sm:col-span-2 md:col-span-1">
+            {watch("location") != "other" && (
+              <Controller
+                name="location"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <S.Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <S.SelectTrigger
+                      className={classnames("shadow-lg text-[#C6C6C6]", {
+                        "border-red-500 border-2 focus-visible:ring-0": errors.location
+                      })}
+                    >
+                      <S.SelectValue placeholder="Location" />
+                    </S.SelectTrigger>
+                    <S.SelectContent>
+                      <S.SelectItem value="Accra">Accra</S.SelectItem>
+                      <S.SelectItem value="Lagos">Lagos</S.SelectItem>
+                      <S.SelectItem value="Berlin">Berlin</S.SelectItem>
+                      <S.SelectItem value="London">London</S.SelectItem>
+                      <S.SelectItem value="Atlanta">Atlanta</S.SelectItem>
+                      <S.SelectItem value="Cape Town">Cape Town</S.SelectItem>
+                      <S.SelectItem value="Lome">Lome</S.SelectItem>
+                      <S.SelectItem value="Cairo">Cairo</S.SelectItem>
+                      <S.SelectItem value="Nairobi">Nairobi</S.SelectItem>
+                      <S.SelectItem value="other">Other</S.SelectItem>
+                    </S.SelectContent>
+                  </S.Select>
+                )}
+              />
+            )}
+            {watch("location") == "other" && (
+              <div className="flex gap-1">
+                <Controller
+                  name="manual_location"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      h={0}
+                      placeholder="Location"
+                      className={classnames(
+                        { "border-red-500 border-2 focus-visible:ring-0": errors.email },
+                        "shadow-lg text-[#A5A5A5] placeholder:text-[##A5A5A5] h-10"
+                      )}
+                    />
+                  )}
+                />
+                <Button
+                  label="Cancel"
+                  variant="destructive"
+                  onClick={() => {
+                    setValue("location", "")
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
 

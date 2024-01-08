@@ -19,6 +19,7 @@ import { useState } from "react"
 import { EnclaveIcon, FacebookIcon, LinkedinIcon, XIcon } from "../components/icons"
 import GetSpaceForm from "../components/GetSpaceForm"
 import { Link } from "react-router-dom"
+import InstagramIcon from "../components/icons/Instagram"
 
 const whatAwaitsYou = [
   {
@@ -294,14 +295,29 @@ const Waitlist = () => {
                 </p>
               </div>
             </div>
-            <Button variant="secondary" className="my-4" label="Send Us a Mail" />
+            <div className="flex justify-center">
+              <Button variant="secondary" className="my-4">
+                <a href="mailto:hi@myenclave.space">Send Us a Mail</a>
+              </Button>
+            </div>
             <div className="flex gap-6 justify-center">
-              <XIcon width="22" height="24" color="white" />
+              <a href="https://twitter.com/enclve" target="_blank">
+                <XIcon width="22" height="24" color="white" />
+              </a>
               <span className="-mt-1">
-                <FacebookIcon width="32" height="32" color="white" />
+                <a href="https://www.facebook.com/enclavellc" target="_blank">
+                  <FacebookIcon width="32" height="32" color="white" />
+                </a>
               </span>
               <span className="-mt-1">
-                <LinkedinIcon width="32" height="32" color="white" />
+                <a href="https://www.linkedin.com/company/enclve" target="_blank">
+                  <LinkedinIcon width="32" height="32" color="white" />
+                </a>
+              </span>
+              <span className="-mt-1">
+                <a href="https://www.instagram.com/myenclve?igsh=MXBsa3hmZjBsNXU4Mw==" target="_blank">
+                  <InstagramIcon width="32" height="32" color="white" />
+                </a>
               </span>
             </div>
           </div>
