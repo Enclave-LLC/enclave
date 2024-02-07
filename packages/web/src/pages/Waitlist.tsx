@@ -15,10 +15,10 @@ import englishFlag from "../assets/png/english-flag.png"
 
 import JoinWaitlistInput from "../components/JoinWaitlistInput"
 import ShareDialog from "../components/ShareDialog"
+import Navbar from "../components/Navbar"
 import { useState } from "react"
 import { EnclaveIcon, FacebookIcon, LinkedinIcon, XIcon } from "../components/icons"
 import GetSpaceForm from "../components/GetSpaceForm"
-import { Link } from "react-router-dom"
 import InstagramIcon from "../components/icons/Instagram"
 
 const whatAwaitsYou = [
@@ -48,28 +48,7 @@ const Waitlist = () => {
     <>
       <div className="p-4">
         <div className=" rounded pb-16 sm:pb-4 p-4" style={{ backgroundColor: "#F7F7F8" }}>
-          <nav className="flex justify-between border-b border-secondary pb-4">
-            <div className="flex justify-center pt-2" style={{ fontFamily: "'Inter', sans-serif" }}>
-              <div>
-                <EnclaveIcon color="primary" />
-              </div>
-              <div className="ml-2 flex content-center -mt-[3px]">
-                <Link to="" className="text-primary text-xl font-bold">
-                  enclave
-                </Link>
-              </div>
-            </div>
-            {/* <div className="hidden lg:block">
-              <Button label="Join Waitlist" style={{ backgroundColor: "#DEDEDE", color: "black" }} />
-            </div> */}
-            <div>
-              <Button className="shadow" style={{ backgroundColor: "white" }}>
-                <img src={englishFlag} width={15} height="auto" alt="English flag" />
-                <span className="text-primary ml-1 mr-1">ENG</span>
-                <img src={globalLine} alt="English flag" />
-              </Button>
-            </div>
-          </nav>
+          <Navbar />
 
           <div className="flex justify-center text-center pt-28">
             <div className="lg:w-6/12">
