@@ -8,12 +8,22 @@ export class spaceService extends BaseService<Space> {
   async find(query: Partial<Space>, authUser: UserData): Promise<Space[]> {
     return await SpaceEntity.find({ relations: { vendor: true } })
   }
+
+  async get(id: string, authUser: UserData): Promise<Space> {
+    const space = await SpaceEntity.findOne({
+      where: { id },
+      relations: { vendor: true }
+    })
+    if (!space) throw HttpErrors.NotFound("Space not found!")
+    return space
+  }
+
   async create(data: Space, authUser: UserData): Promise<Space> {
     const user = await UserEntity.findOne({
       where: { id: authUser.id },
       relations: { vendor: true }
     })
-    if (!user.isVendor) throw HttpErrors.BadRequest("Not Allowed")
+    if (!user.isVendor) throw HttpErrors.BadRequest("Not Allowed: User not a vendor")
     const newSpace = new SpaceEntity({
       name: data.name,
       address: data.address,

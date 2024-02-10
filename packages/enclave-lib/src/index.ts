@@ -1,5 +1,5 @@
 import AuthLib from "./auth"
-import { initCustomFetch } from "./instance"
+import { initCustomFetch } from "./utils/instance"
 import UserLib from "./user"
 
 export interface EnclaveOptions {

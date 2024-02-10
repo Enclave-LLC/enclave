@@ -1,5 +1,5 @@
 import axios from "axios"
-import { getLocalAuth } from "./auth"
+import { getLocalAuth } from "../auth"
 
 export function initCustomFetch(baseURL: string) {
   const customFetch = axios.create({

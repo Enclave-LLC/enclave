@@ -6,7 +6,9 @@ const UriPaths = {
   // user
   updateUserInfo: "/users/smth", // [smth] is supposed to be userId but not enforced by BACK-END
   optInVendor: "/vendors",
-  updateVendorInfo: "/vendors/smth" // [smth] is supposed to be vendorId but not enforced.
+  updateVendorInfo: "/vendors/smth", // [smth] is supposed to be vendorId but not enforced.
+  // space
+  spacesBase: "/spaces"
 }
 
 export default UriPaths

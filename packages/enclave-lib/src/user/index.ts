@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios"
 import { UserData } from "../auth"
-import UriPaths from "../UriPaths"
+import UriPaths from "../utils/UriPaths"
 
 export type VendorData = {
   name: string
