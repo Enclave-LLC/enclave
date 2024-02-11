@@ -29,6 +29,14 @@ const SignInAuthSchema = {
   required: ["email", "password"]
 }
 
+const ValidateEmailSchema = {
+  type: "object",
+  properties: {
+    email: { type: "string" }
+  },
+  required: ["email"]
+}
+
 async function initialize() {
   const fastify = Fastify({
     logger: true,
@@ -58,6 +66,15 @@ async function initialize() {
     async (request: FastifyRequest<{ Body: UserEntity }>, reply) => {
       const { email, password } = request.body
       const response = await AuthService.localSignIn(email, password)
+      reply.send(response)
+    }
+  )
+  fastify.post(
+    "/auth/validate",
+    { schema: { body: ValidateEmailSchema } },
+    async (request: FastifyRequest<{ Body: { email: string } }>, reply) => {
+      const { email } = request.body
+      const response = await AuthService.validateEmail(email)
       reply.send(response)
     }
   )

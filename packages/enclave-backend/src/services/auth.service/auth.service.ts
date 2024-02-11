@@ -14,7 +14,10 @@ export class AuthService {
     token: string
   }> {
     // TODO: do hash comparison of password!
-    const foundUser = await UserEntity.findOne({ where: { email, password } })
+    const foundUser = await UserEntity.findOne({
+      where: { email, password },
+      relations: { vendor: true }
+    })
     if (!foundUser) throw HttpErrors.NotFound("No user found!")
     const userData = foundUser.getUserData()
     const token = AuthService.signJWT(userData)
@@ -33,9 +36,8 @@ export class AuthService {
     token: string
   }> {
     // TODO: encrypt password!
-    // TODO: check email uniqueness
-    const emailExists = await UserEntity.exists({ where: { email } })
-    if (emailExists) throw HttpErrors.BadRequest("Email already exists")
+    const { isAvailable } = await AuthService.validateEmail(email)
+    if (isAvailable) throw HttpErrors.BadRequest("Email already exists")
     // store info in the user table
     const newUser = new UserEntity({
       email,
@@ -48,6 +50,12 @@ export class AuthService {
       userData,
       token
     }
+  }
+
+  static async validateEmail(email: string): Promise<{ isAvailable }> {
+    // TODO do email schema validate!!!
+    const isAvailable = await UserEntity.exists({ where: { email } })
+    return { isAvailable }
   }
 
   static signJWT(payload: AuthUserType) {
