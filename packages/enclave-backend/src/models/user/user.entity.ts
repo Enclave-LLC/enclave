@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm"
+import { AfterLoad, BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm"
 import { EntityType } from "../type"
 import { Vendor } from "./vendor.entity"
 
@@ -38,6 +38,11 @@ export class UserEntity extends BaseEntity {
   @OneToOne(() => Vendor, (vendor) => vendor.user, { cascade: true })
   @JoinColumn()
   vendor?: Vendor
+
+  @AfterLoad()
+  onLoad() {
+    delete this.password
+  }
 
   getUserData() {
     return {

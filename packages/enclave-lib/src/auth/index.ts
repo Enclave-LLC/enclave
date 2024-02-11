@@ -11,7 +11,7 @@ export type AuthUser = {
   userData: UserData & { isVendor: boolean }
 }
 
-export default class Auth {
+export default class AuthLib {
   #customFetch: AxiosInstance
   constructor(customFetch: AxiosInstance) {
     this.#customFetch = customFetch
