@@ -1,10 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
+import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm"
+import { EntityType } from "../type"
+import { Vendor } from "./vendor.entity"
 
-export type UserData = Pick<User, "firstname" | "lastname" | "isVendor">
+export type UserData = Pick<User, "firstname" | "lastname" | "id">
+
+export type User = EntityType<UserEntity>
 
 @Entity()
-export class User extends BaseEntity {
-  constructor(init?: Partial<User>) {
+export class UserEntity extends BaseEntity {
+  constructor(init?: Partial<UserEntity>) {
     super()
     if (init) {
       for (const [key, value] of Object.entries(init)) {
@@ -13,7 +17,7 @@ export class User extends BaseEntity {
     }
   }
   @PrimaryGeneratedColumn()
-  id: number
+  id: string
 
   @Column()
   firstname: string
@@ -27,18 +31,24 @@ export class User extends BaseEntity {
   @Column()
   password: string
 
-  @Column({ default: false })
-  isVendor: boolean
+  get isVendor() {
+    return !!this.vendor
+  }
+
+  @OneToOne(() => Vendor, (vendor) => vendor.user, { cascade: true })
+  @JoinColumn()
+  vendor?: Vendor
 
   getUserData() {
     return {
+      id: this.id,
       firstname: this.firstname,
       lastname: this.lastname,
       isVendor: this.isVendor
     }
   }
 
-  setUserData(data: UserData) {
+  setUserData(data: Omit<UserData, "id">) {
     for (const [key, value] of Object.entries(data)) {
       this[key] = value
     }

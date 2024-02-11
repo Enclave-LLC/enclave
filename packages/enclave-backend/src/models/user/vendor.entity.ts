@@ -1,10 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { BaseEntity, Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm"
+import { UserEntity } from "./user.entity"
 
 @Entity()
-export class Vendor {
+export class Vendor extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number
+  id: string
 
   @Column()
   name: string
+
+  @OneToOne(() => UserEntity, (user) => user.vendor)
+  user: UserEntity
 }

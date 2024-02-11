@@ -1,12 +1,12 @@
-import "reflect-metadata"
 import "dotenv/config"
 import Fastify, { FastifyRequest } from "fastify"
-import ServiceConfig from "./services/register.service"
-import ServiceRouteMapper from "./serviceRouteMapper"
+import "reflect-metadata"
 import { AppDataSource } from "./data-source"
-import { User } from "./models/user/user.entity"
-import { AuthService } from "./services/auth.service/auth.service"
 import { HTTPError } from "./errors"
+import { User, UserEntity } from "./models/user/user.entity"
+import ServiceRouteMapper from "./serviceRouteMapper"
+import { AuthService } from "./services/auth.service/auth.service"
+import ServiceConfig from "./services/register.service"
 
 const SignUpAuthSchema = {
   type: "object",
@@ -31,7 +31,8 @@ const SignInAuthSchema = {
 
 async function initialize() {
   const fastify = Fastify({
-    logger: true
+    logger: true,
+    ignoreTrailingSlash: true
   })
 
   fastify.setErrorHandler((error: HTTPError, request, reply) => {
@@ -54,7 +55,7 @@ async function initialize() {
   fastify.post(
     "/auth/signin",
     { schema: { body: SignInAuthSchema } },
-    async (request: FastifyRequest<{ Body: User }>, reply) => {
+    async (request: FastifyRequest<{ Body: UserEntity }>, reply) => {
       const { email, password } = request.body
       const response = await AuthService.localSignIn(email, password)
       reply.send(response)

@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// Isn't the above eslint ignore annoying!!!
 import HttpErrors from "../errors"
+import { AuthUserType } from "./auth.service/auth.service"
 
 export class BaseService<T> {
-  async find(query: Partial<T>): Promise<T[]> {
+  async find(query: Partial<T>, authUser: AuthUserType): Promise<T[]> {
     throw HttpErrors.NotFound()
   }
-  async get(id: string): Promise<T> {
+  async get(id: string, authUser: AuthUserType): Promise<T> {
     throw HttpErrors.NotFound()
   }
-  async create(data: T): Promise<T> {
+  async create(data: T, authUser: AuthUserType): Promise<T> {
     throw HttpErrors.NotFound()
   }
-  async update(query: Partial<T>, data: Partial<T>): Promise<T> {
+  async update(id: string, data: Partial<T>, authUser: AuthUserType): Promise<T> {
     throw HttpErrors.NotFound()
   }
-  async delete(id: string): Promise<T> {
+  async delete(id: string, authUser: AuthUserType): Promise<T> {
     throw HttpErrors.NotFound()
   }
 }
