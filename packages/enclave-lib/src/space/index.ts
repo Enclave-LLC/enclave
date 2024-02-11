@@ -1,5 +1,4 @@
 import { AxiosInstance } from "axios"
-import { VendorData } from "../user"
 import UriPaths from "../utils/UriPaths"
 
 export enum Amenities {
@@ -9,7 +8,6 @@ export enum Amenities {
 
 export type SpaceData = {
   name: string
-  vendor: VendorData
   address: string
   location: { lng: number; lat: number }
   size: number
@@ -17,7 +15,7 @@ export type SpaceData = {
   amenities: Amenities[]
 }
 
-export class SpaceLib {
+export default class SpaceLib {
   #customFetch: AxiosInstance
   constructor(customFetch: AxiosInstance) {
     this.#customFetch = customFetch

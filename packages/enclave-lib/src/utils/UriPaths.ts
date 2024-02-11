@@ -8,7 +8,9 @@ const UriPaths = {
   optInVendor: "/vendors",
   updateVendorInfo: "/vendors/smth", // [smth] is supposed to be vendorId but not enforced.
   // space
-  spacesBase: "/spaces"
+  spacesBase: "/spaces",
+  // booking
+  bookingBase: "/bookings"
 }
 
 export default UriPaths

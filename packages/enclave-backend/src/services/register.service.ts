@@ -1,4 +1,5 @@
 import { BaseService } from "./base.service"
+import { bookingService } from "./booking.service/booking.service"
 import { spaceService } from "./space.service/space.service"
 import { userService } from "./user.service/user.service"
 import { vendorService } from "./vendor.service/vendor.service"
@@ -30,6 +31,12 @@ const ServiceConfig: registrationType[] = [
     route: "/vendors",
     methods: ["POST", "PUT"],
     service: vendorService,
+    needsAuth: true
+  },
+  {
+    route: "/bookings",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    service: bookingService,
     needsAuth: true
   }
 ]

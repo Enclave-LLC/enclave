@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, ManyToOne, PrimaryGeneratedColumn, RelationId } from "typeorm"
+import { BaseEntity, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
 import { SpaceEntity } from "../space/space.entity"
 import { EntityType } from "../type"
 import { UserEntity } from "../user/user.entity"
@@ -9,16 +9,10 @@ export class BookingEntity extends BaseEntity {
   id: string
 
   @ManyToOne(() => UserEntity)
-  user: UserEntity // making the booking
-
-  @RelationId((booking: BookingEntity) => booking.user)
-  userId: string
+  user: UserEntity
 
   @ManyToOne(() => SpaceEntity) // space their booking
   space: SpaceEntity // on-way relation
-
-  @RelationId((booking: BookingEntity) => booking.space)
-  spaceId: string
 }
 
 export type Booking = EntityType<BookingEntity>
