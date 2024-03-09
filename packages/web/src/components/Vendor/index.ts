@@ -1,1 +1,1 @@
-export { default } from "./AddSpaceForm"
+export { default } from "./AddSpace/AddSpaceForm"

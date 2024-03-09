@@ -1,24 +1,26 @@
-import { Button } from "component-library"
+import Navbar from "../../components/Navbar"
+import AddSpaceForm from "../../components/Vendor"
+import DiscreteProgress from "../../components/DiscreteProgress"
+import { MAX_STEPS } from "./utils/constants"
+import { useState } from "react"
 
 const AddSpace = () => {
+  const [currentStep, setCurrentStep] = useState(1)
   return (
-    <div className="p-4 bg-secondary min-h-screen">
-      <div className="w-6/12 mx-auto">
-        <div className="flex justify-between">
-          <h3 className="text-2xl">Overview</h3>
-
-          <div>
-            <Button>Save & Exit</Button>
+    <>
+      <div className="px-4 pt-4">
+        <Navbar>
+          <div className=" w-[700px] pt-1">
+            <DiscreteProgress numberOfSteps={MAX_STEPS} currentStep={currentStep} />
           </div>
-        </div>
-        <div className="shadow-md rounded-md bg-white p-6 mt-5">
-          Venue Details
-          <div className="flex justify-end">
-            <Button>Save & Continue</Button>
-          </div>
+        </Navbar>
+      </div>
+      <div className="p-4 bg-secondary min-h-screen">
+        <div className="w-8/12 mx-auto">
+          <AddSpaceForm onPageNext={setCurrentStep} />
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

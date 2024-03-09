@@ -11,6 +11,7 @@ import Spaces from "./pages/Spaces.tsx"
 import ListSpace from "./pages/ListSpace.tsx"
 import ErrorPage from "./pages/ErrorPage.tsx"
 import { AddSpace, Dashboard, Vendor } from "./pages/Vendor"
+import { MapsProvider } from "./context/MapContext.tsx"
 
 const router = createBrowserRouter([
   {
@@ -43,14 +44,14 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "dashboard",
+        path: "",
         element: <Dashboard />
-      },
-      {
-        path: "new-space",
-        element: <AddSpace />
       }
     ]
+  },
+  {
+    path: "/app/vendor/new-space",
+    element: <AddSpace />
   },
   {
     path: "/app/customer",
@@ -61,8 +62,10 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <>
     <React.StrictMode>
-      <RouterProvider router={router} />
-      <Analytics />
+      <MapsProvider>
+        <RouterProvider router={router} />
+        <Analytics />
+      </MapsProvider>
     </React.StrictMode>
   </>
 )

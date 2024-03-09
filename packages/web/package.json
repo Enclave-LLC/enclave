@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.3",
+    "@react-google-maps/api": "^2.19.3",
+    "@types/google-map-react": "^2.1.10",
     "@vercel/analytics": "^1.1.1",
     "axios": "^1.6.2",
     "classnames": "^2.5.1",
