@@ -6,13 +6,13 @@ const prisma = new PrismaClient(
         log: [
           {
             emit: "event",
-            level: "query"
-          }
-        ]
+            level: "query",
+          },
+        ],
       }
     : {
-        log: []
-      }
+        log: [],
+      },
 )
 
 ;(async () => {
