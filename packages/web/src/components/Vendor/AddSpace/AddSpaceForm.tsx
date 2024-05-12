@@ -54,9 +54,18 @@ const AddSpaceForm = ({ onPageNext }: AddSpaceFormProps) => {
     control,
     setValue,
     watch,
+    trigger,
     formState: { errors }
   } = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema)
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      venue_details: {
+        event_types: [],
+        building_types: [],
+        entertainment_types: []
+      }
+    },
+    mode: "all"
   })
 
   const handleBack = () => {
@@ -67,11 +76,35 @@ const AddSpaceForm = ({ onPageNext }: AddSpaceFormProps) => {
     onPageNext(activePageIndex)
   }
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (activePageIndex === FORM_PAGES.length - 1) {
       return
     }
     // TODO: Do form validation for current page
+    let shouldProceed = true
+    switch (activePageIndex) {
+      case FORM_PAGE_INDEX.OVERVIEW:
+        shouldProceed = await trigger("venue_details")
+        break
+      case FORM_PAGE_INDEX.SPACE_CONFIGURATION:
+        shouldProceed = await trigger("space_configuration")
+        break
+      case FORM_PAGE_INDEX.ADDRESS_AND_LOCATION:
+        shouldProceed = await trigger("location")
+        break
+      case FORM_PAGE_INDEX.SPACE_PROVISIONS:
+        shouldProceed = await trigger("amenities")
+        break
+      case FORM_PAGE_INDEX.SPACE_PRICING:
+        shouldProceed = await trigger("pricing")
+        break
+      case FORM_PAGE_INDEX.SPACE_TERMS_AND_CONDITIONS:
+        shouldProceed = await trigger("terms_and_conditions")
+        break
+    }
+    if (!shouldProceed) {
+      return
+    }
     setActivePageIndex(activePageIndex + 1)
     onPageNext(activePageIndex + 2)
     document.documentElement.scrollTo({

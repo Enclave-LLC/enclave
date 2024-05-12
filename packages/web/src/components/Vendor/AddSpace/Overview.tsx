@@ -1,4 +1,3 @@
-import classnames from "classnames"
 import { Input, Checkbox, Textarea } from "component-library"
 import { Control, Controller, FieldErrors } from "react-hook-form"
 import * as z from "zod"
@@ -31,7 +30,7 @@ const CustomCheckbox = ({
     <div className="px-4 py-2 bg-white rounded">
       <div>
         {/* Custom Checkbox component */}
-        <Checkbox id={id} label={label} onChange={onChange} checked={checked} />
+        <Checkbox id={id} label={label} onChange={onChange} onCheckedChange={onChange} checked={checked} />
       </div>
     </div>
   )
@@ -48,21 +47,15 @@ const Overview = ({ control, errors }: OverviewProps) => {
             <Controller
               name="venue_details.venue_name"
               control={control}
-              rules={{ required: true }}
               render={({ field }) => (
                 <>
                   <label htmlFor="venue_name" className="block text-sm mb-2">
                     Venue Name
                   </label>
-                  <Input
-                    {...field}
-                    id="venue_name"
-                    placeholder="Venue Details"
-                    className={classnames(
-                      { "border-red-500 border-2 focus-visible:ring-0": errors.venue_details?.venue_name },
-                      "text-[#A5A5A5] placeholder:text-[##A5A5A5]"
-                    )}
-                  />
+                  <Input {...field} id="venue_name" placeholder="Venue Name" />
+                  {errors.venue_details?.venue_name && (
+                    <p className="text-red-500 text-sm">{errors.venue_details.venue_name.message}</p>
+                  )}
                 </>
               )}
             />
@@ -73,18 +66,15 @@ const Overview = ({ control, errors }: OverviewProps) => {
                 Purpose of Venue
               </label>
               <Controller
-                name="venue_details.venue_name"
+                name="venue_details.venue_purpose"
                 control={control}
-                rules={{ required: true }}
                 render={({ field }) => (
-                  <Input
-                    {...field}
-                    placeholder="Purpose of Venue"
-                    className={classnames(
-                      { "border-red-500 border-2 focus-visible:ring-0": errors.venue_details?.venue_name },
-                      "text-[#A5A5A5] placeholder:text-[##A5A5A5]"
+                  <>
+                    <Input {...field} placeholder="Purpose of Venue" />
+                    {errors.venue_details?.venue_purpose && (
+                      <p className="text-red-500 text-sm">{errors.venue_details.venue_purpose.message}</p>
                     )}
-                  />
+                  </>
                 )}
               />
             </>
@@ -103,12 +93,10 @@ const Overview = ({ control, errors }: OverviewProps) => {
                 <Controller
                   name="venue_details.event_types"
                   control={control}
-                  rules={{ required: true }}
                   render={({ field }) => (
                     <CustomCheckbox
-                      {...field}
                       onChange={(e) => {
-                        const isChecked = e.target.checked
+                        const isChecked = e
                         const newValue = isChecked ? [...field.value, type] : field.value.filter((v) => v !== type)
                         field.onChange(newValue)
                       }}
@@ -120,6 +108,11 @@ const Overview = ({ control, errors }: OverviewProps) => {
                 />
               </div>
             ))}
+          </div>
+          <div>
+            {errors.venue_details?.event_types && (
+              <p className="text-red-500 text-sm">{errors.venue_details.event_types.message}</p>
+            )}
           </div>
         </div>
 
@@ -131,12 +124,10 @@ const Overview = ({ control, errors }: OverviewProps) => {
                 <Controller
                   name="venue_details.building_types"
                   control={control}
-                  rules={{ required: true }}
                   render={({ field }) => (
                     <CustomCheckbox
-                      {...field}
                       onChange={(e) => {
-                        const isChecked = e.target.checked
+                        const isChecked = e
                         const newValue = isChecked ? [...field.value, type] : field.value.filter((v) => v !== type)
                         field.onChange(newValue)
                       }}
@@ -149,6 +140,11 @@ const Overview = ({ control, errors }: OverviewProps) => {
               </div>
             ))}
           </div>
+          <div>
+            {errors.venue_details?.building_types && (
+              <p className="text-red-500 text-sm">{errors.venue_details.building_types.message}</p>
+            )}
+          </div>
         </div>
         <div>
           <p className="py-6">Type of entertainment? Kindly select all that applies.</p>
@@ -158,12 +154,10 @@ const Overview = ({ control, errors }: OverviewProps) => {
                 <Controller
                   name="venue_details.entertainment_types"
                   control={control}
-                  rules={{ required: true }}
                   render={({ field }) => (
                     <CustomCheckbox
-                      {...field}
                       onChange={(e) => {
-                        const isChecked = e.target.checked
+                        const isChecked = e
                         const newValue = isChecked ? [...field.value, type] : field.value.filter((v) => v !== type)
                         field.onChange(newValue)
                       }}
@@ -175,6 +169,11 @@ const Overview = ({ control, errors }: OverviewProps) => {
                 />
               </div>
             ))}
+          </div>
+          <div>
+            {errors.venue_details?.entertainment_types && (
+              <p className="text-red-500 text-sm">{errors.venue_details.entertainment_types.message}</p>
+            )}
           </div>
         </div>
       </div>
@@ -195,21 +194,16 @@ const Overview = ({ control, errors }: OverviewProps) => {
                   element: (
                     <>
                       <Controller
-                        name="venue_details.venue_name"
+                        name="venue_details.description"
                         control={control}
-                        rules={{ required: true }}
-                        render={({ field }) => (
-                          <Textarea
-                            {...field}
-                            placeholder="Type your description here"
-                            className={classnames(
-                              { "border-red-500 border-2 focus-visible:ring-0": errors.venue_details?.venue_name },
-                              "text-[#A5A5A5] placeholder:text-[##A5A5A5]"
-                            )}
-                          />
-                        )}
+                        render={({ field }) => <Textarea {...field} placeholder="Type your description here" />}
                       />
                       <p className="text-[#9CA3AF] text-sm mt-2">0/250 words</p>
+                      <div>
+                        {errors.venue_details?.description && (
+                          <p className="text-red-500 text-sm">{errors.venue_details.description.message}</p>
+                        )}
+                      </div>
                     </>
                   )
                 },

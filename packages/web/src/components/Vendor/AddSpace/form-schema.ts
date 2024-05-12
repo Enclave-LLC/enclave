@@ -9,11 +9,12 @@ const day_pricing_schema = z.object({
 
 export const FormSchema = z.object({
   venue_details: z.object({
-    venue_name: z.string(),
-    description: z.string(),
-    event_types: z.array(z.string()),
-    building_types: z.array(z.string()),
-    entertainment_types: z.array(z.string())
+    venue_name: z.string({ required_error: "Venue name is required" }).min(1, "Venue name is required"),
+    venue_purpose: z.string({ required_error: "Venue purpose is required" }).min(1, "Venue purpose is required"),
+    description: z.string({ required_error: "Please provide a description" }).min(1, "Please provide a description"),
+    event_types: z.array(z.string()).min(1, "At least one event type must be selected"),
+    building_types: z.array(z.string()).min(1, "At least one building type must be selected"),
+    entertainment_types: z.array(z.string()).min(1, "At least one entertainment type must be selected")
   }),
   space_configuration: z.object({
     unit_type: z.enum(["complete", "part"]),
