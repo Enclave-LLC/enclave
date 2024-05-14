@@ -66,6 +66,35 @@ const AddSpaceForm = ({ onPageNext }: AddSpaceFormProps) => {
       },
       space_configuration: {
         unit_type: "complete"
+      },
+      pricing: {
+        days: {
+          monday: {
+            available: false
+          },
+          tuesday: {
+            available: false
+          },
+          wednesday: {
+            available: false
+          },
+          thursday: {
+            available: false
+          },
+          friday: {
+            available: false
+          },
+          saturday: {
+            available: false
+          },
+          sunday: {
+            available: false
+          }
+        }
+      },
+      terms_and_conditions: {
+        cancellation_policy: "very_flexible",
+        reschedule_policy: "allowed"
       }
     },
     mode: "all"

@@ -35,7 +35,6 @@ const SpaceProvisions = ({ control }: OverviewProps) => {
             <Controller
               name="amenities.free_parking_count"
               control={control}
-              rules={{ required: true }}
               render={({ field }) => (
                 <>
                   <label htmlFor="free_parking">Free parking on premise</label>
@@ -48,7 +47,6 @@ const SpaceProvisions = ({ control }: OverviewProps) => {
             <Controller
               name="amenities.paid_parking_count"
               control={control}
-              rules={{ required: true }}
               render={({ field }) => (
                 <>
                   <label htmlFor="paid_parking">Paid parking on premise</label>
@@ -66,7 +64,6 @@ const SpaceProvisions = ({ control }: OverviewProps) => {
             <Controller
               name="amenities.single_room_count"
               control={control}
-              rules={{ required: true }}
               render={({ field }) => (
                 <>
                   <label htmlFor="screen_count">Number of single rooms available</label>
@@ -85,7 +82,6 @@ const SpaceProvisions = ({ control }: OverviewProps) => {
             <Controller
               name="amenities.double_room_count"
               control={control}
-              rules={{ required: true }}
               render={({ field }) => (
                 <>
                   <label htmlFor="projector_count">Number of double rooms available</label>
@@ -108,7 +104,6 @@ const SpaceProvisions = ({ control }: OverviewProps) => {
           <Controller
             name="amenities.wifi"
             control={control}
-            rules={{ required: true }}
             render={({ field }) => (
               <>
                 <RadioGroup.RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-6">
@@ -130,7 +125,6 @@ const SpaceProvisions = ({ control }: OverviewProps) => {
           <Controller
             name="amenities.sound_system"
             control={control}
-            rules={{ required: true }}
             render={({ field }) => (
               <>
                 <RadioGroup.RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-6">
@@ -152,7 +146,6 @@ const SpaceProvisions = ({ control }: OverviewProps) => {
           <Controller
             name="amenities.eateries_and_cutlery"
             control={control}
-            rules={{ required: true }}
             render={({ field }) => (
               <>
                 <RadioGroup.RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-6">
@@ -183,7 +176,6 @@ const SpaceProvisions = ({ control }: OverviewProps) => {
             <Controller
               name="amenities.screen_count"
               control={control}
-              rules={{ required: true }}
               render={({ field }) => (
                 <>
                   <label htmlFor="screen_count">Number of screens available</label>
@@ -196,7 +188,6 @@ const SpaceProvisions = ({ control }: OverviewProps) => {
             <Controller
               name="amenities.projector_count"
               control={control}
-              rules={{ required: true }}
               render={({ field }) => (
                 <>
                   <label htmlFor="projector_count">Number of projectors available</label>

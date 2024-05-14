@@ -2,9 +2,9 @@ import * as z from "zod"
 
 const day_pricing_schema = z.object({
   available: z.boolean(),
-  opening_time: z.string(),
-  closing_time: z.string(),
-  rate: z.number()
+  opening_time: z.string().optional(),
+  closing_time: z.string().optional(),
+  rate: z.number().optional()
 })
 
 export const FormSchema = z.object({
@@ -22,31 +22,31 @@ export const FormSchema = z.object({
     floor_plan: z.any()
   }),
   location: z.object({
-    address: z.string(),
-    city: z.string(),
-    street: z.string(),
-    house_number: z.string(),
-    state: z.string(),
-    postal_code: z.string(),
-    country: z.string(),
+    address: z.string({ required_error: "Address is required" }),
+    city: z.string().optional(),
+    street: z.string().optional(),
+    house_number: z.string().optional(),
+    state: z.string().optional(),
+    postal_code: z.string().optional(),
+    country: z.string().optional(),
     coordinates: z.object({
       lat: z.number(),
       lng: z.number()
     })
   }),
   amenities: z.object({
-    free_parking_count: z.number(),
-    paid_parking_count: z.number(),
-    single_room_count: z.number(),
-    double_room_count: z.number(),
-    wifi: z.string(),
-    sound_system: z.string(),
-    microphone_count: z.number(),
-    speaker_count: z.number(),
-    mixer_count: z.number(),
-    eateries_and_cutlery: z.string(),
-    screen_count: z.number(),
-    projector_count: z.number()
+    free_parking_count: z.number().optional(),
+    paid_parking_count: z.number().optional(),
+    single_room_count: z.number().optional(),
+    double_room_count: z.number().optional(),
+    wifi: z.string().optional(),
+    sound_system: z.string().optional(),
+    microphone_count: z.number().optional(),
+    speaker_count: z.number().optional(),
+    mixer_count: z.number().optional(),
+    eateries_and_cutlery: z.string().optional(),
+    screen_count: z.number().optional(),
+    projector_count: z.number().optional()
   }),
   pricing: z.object({
     days: z.object({
@@ -60,7 +60,7 @@ export const FormSchema = z.object({
     })
   }),
   terms_and_conditions: z.object({
-    cancellation_policy: z.string(),
+    cancellation_policy: z.enum(["very_flexible", "flexible", "thirty_day", "sixty_day"]),
     reschedule_policy: z.enum(["allowed", "not_allowed"]),
     refund_policy: z.string(),
     space_rules: z.string()
