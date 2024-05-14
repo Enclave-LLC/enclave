@@ -63,6 +63,9 @@ const AddSpaceForm = ({ onPageNext }: AddSpaceFormProps) => {
         event_types: [],
         building_types: [],
         entertainment_types: []
+      },
+      space_configuration: {
+        unit_type: "complete"
       }
     },
     mode: "all"
@@ -80,6 +83,7 @@ const AddSpaceForm = ({ onPageNext }: AddSpaceFormProps) => {
     if (activePageIndex === FORM_PAGES.length - 1) {
       return
     }
+    console.log(watch())
     // TODO: Do form validation for current page
     let shouldProceed = true
     switch (activePageIndex) {

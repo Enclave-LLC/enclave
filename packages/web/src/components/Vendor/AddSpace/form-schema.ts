@@ -17,9 +17,9 @@ export const FormSchema = z.object({
     entertainment_types: z.array(z.string()).min(1, "At least one entertainment type must be selected")
   }),
   space_configuration: z.object({
-    unit_type: z.enum(["complete", "part"]),
-    size: z.number(),
-    floor_plan: z.string()
+    unit_type: z.enum(["complete", "part"], { required_error: "Unit type is required" }),
+    size: z.number({ required_error: "Size is required" }).min(7, "Size must be at least 7"),
+    floor_plan: z.any()
   }),
   location: z.object({
     address: z.string(),

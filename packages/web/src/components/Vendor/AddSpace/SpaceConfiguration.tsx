@@ -1,4 +1,3 @@
-import classnames from "classnames"
 import { Input, RadioGroup } from "component-library"
 import { Control, Controller, FieldErrors } from "react-hook-form"
 import * as z from "zod"
@@ -53,6 +52,9 @@ const SpaceConfiguration = ({ control, errors }: OverviewProps) => {
                   </>
                 )}
               />
+              {errors.space_configuration?.unit_type && (
+                <p className="text-red-500 text-sm">{errors.space_configuration.unit_type.message}</p>
+              )}
             </div>
           </div>
         </div>
@@ -121,7 +123,6 @@ const SpaceConfiguration = ({ control, errors }: OverviewProps) => {
               <Controller
                 name="space_configuration.size"
                 control={control}
-                rules={{ required: true }}
                 render={({ field }) => (
                   <>
                     <label htmlFor="size" className="block text-sm mb-2">
@@ -129,15 +130,22 @@ const SpaceConfiguration = ({ control, errors }: OverviewProps) => {
                     </label>
                     <Input
                       {...field}
+                      onChange={(e) => {
+                        const value = parseFloat(e.target.value)
+                        if (Number.isNaN(value)) {
+                          field.onChange()
+                          return
+                        }
+                        field.onChange(value)
+                      }}
                       id="size"
                       placeholder="Size in sqm (m²)"
                       type="number"
                       min={7}
-                      className={classnames(
-                        { "border-red-500 border-2 focus-visible:ring-0": errors.space_configuration?.size },
-                        "text-[#A5A5A5] placeholder:text-[##A5A5A5]"
-                      )}
                     />
+                    {errors.space_configuration?.size && (
+                      <p className="text-red-500 text-sm">{errors.space_configuration.size.message}</p>
+                    )}
                   </>
                 )}
               />
@@ -150,7 +158,6 @@ const SpaceConfiguration = ({ control, errors }: OverviewProps) => {
                 <Controller
                   name="space_configuration.floor_plan"
                   control={control}
-                  rules={{ required: true }}
                   render={({ field }) => (
                     <Input
                       {...field}
@@ -158,10 +165,6 @@ const SpaceConfiguration = ({ control, errors }: OverviewProps) => {
                       h={0}
                       accept=".png, .jpg, .jpeg, .svg, .webp"
                       placeholder="Upload floor plan"
-                      className={classnames(
-                        { "border-red-500 border-2 focus-visible:ring-0": errors.space_configuration?.floor_plan },
-                        "text-[#A5A5A5] placeholder:text-[##A5A5A5] p-[13px] cursor-pointer"
-                      )}
                     />
                   )}
                 />
