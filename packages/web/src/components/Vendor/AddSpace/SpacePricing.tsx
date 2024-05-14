@@ -1,4 +1,3 @@
-import classnames from "classnames"
 import { Input, Switch } from "component-library"
 import { Control, Controller, FieldErrors } from "react-hook-form"
 import * as z from "zod"
@@ -13,7 +12,7 @@ interface OverviewProps {
   errors: FieldErrors<z.infer<typeof FormSchema>>
 }
 
-const SpacePricing = ({ control, errors }: OverviewProps) => {
+const SpacePricing = ({ control }: OverviewProps) => {
   return (
     <>
       <div>
@@ -27,7 +26,6 @@ const SpacePricing = ({ control, errors }: OverviewProps) => {
                 <Controller
                   name={`pricing.days.${day.toLowerCase()}.available` as never}
                   control={control}
-                  rules={{ required: true }}
                   render={({ field }) => <Switch {...field} />}
                 />
               </div>
@@ -37,14 +35,9 @@ const SpacePricing = ({ control, errors }: OverviewProps) => {
                   <Controller
                     name={`pricing.days.${day.toLowerCase()}.opening_time` as never}
                     control={control}
-                    rules={{ required: true }}
                     render={({ field }) => (
                       <S.Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <S.SelectTrigger
-                          className={classnames("rounded-[50px] h-7", {
-                            "border-red-500 border-2 focus-visible:ring-0": errors.pricing
-                          })}
-                        >
+                        <S.SelectTrigger>
                           <S.SelectValue placeholder="Time" />
                         </S.SelectTrigger>
                         <S.SelectContent>
@@ -64,14 +57,9 @@ const SpacePricing = ({ control, errors }: OverviewProps) => {
                   <Controller
                     name={`pricing.days.${day.toLowerCase()}.closing_time` as never}
                     control={control}
-                    rules={{ required: true }}
                     render={({ field }) => (
                       <S.Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <S.SelectTrigger
-                          className={classnames("rounded-[50px] h-7", {
-                            "border-red-500 border-2 focus-visible:ring-0": errors.pricing
-                          })}
-                        >
+                        <S.SelectTrigger>
                           <S.SelectValue placeholder="Time" />
                         </S.SelectTrigger>
                         <S.SelectContent>
@@ -89,7 +77,6 @@ const SpacePricing = ({ control, errors }: OverviewProps) => {
                 <Controller
                   name={`pricing.days.${day.toLowerCase()}.rate` as never}
                   control={control}
-                  rules={{ required: true }}
                   render={({ field }) => (
                     <Input h={0} placeholder="Hourly Rate" className="h-8" type="number" {...field} />
                   )}

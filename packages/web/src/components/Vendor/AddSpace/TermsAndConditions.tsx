@@ -36,7 +36,7 @@ interface OverviewProps {
   control: Control<z.infer<typeof FormSchema>>
   errors: FieldErrors<z.infer<typeof FormSchema>>
 }
-const TermsAndConditions = ({ control }: OverviewProps) => {
+const TermsAndConditions = ({ control, errors }: OverviewProps) => {
   return (
     <>
       {/* Space Rules */}
@@ -78,7 +78,6 @@ const TermsAndConditions = ({ control }: OverviewProps) => {
           <Controller
             name="terms_and_conditions.cancellation_policy"
             control={control}
-            rules={{ required: true }}
             render={({ field }) => (
               <>
                 <RadioGroup.RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="gap-5">
@@ -130,6 +129,9 @@ const TermsAndConditions = ({ control }: OverviewProps) => {
                     </div>
                   </RadioItemWithBody>
                 </RadioGroup.RadioGroup>
+                {errors.terms_and_conditions?.cancellation_policy && (
+                  <p className="text-red-500 text-sm">{errors.terms_and_conditions.cancellation_policy.message}</p>
+                )}
               </>
             )}
           />
@@ -143,7 +145,6 @@ const TermsAndConditions = ({ control }: OverviewProps) => {
           <Controller
             name="terms_and_conditions.reschedule_policy"
             control={control}
-            rules={{ required: true }}
             render={({ field }) => (
               <>
                 <RadioGroup.RadioGroup
@@ -166,6 +167,9 @@ const TermsAndConditions = ({ control }: OverviewProps) => {
                     />
                   </div>
                 </RadioGroup.RadioGroup>
+                {errors.terms_and_conditions?.reschedule_policy && (
+                  <p className="text-red-500 text-sm">{errors.terms_and_conditions.reschedule_policy.message}</p>
+                )}
               </>
             )}
           />

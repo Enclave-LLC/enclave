@@ -1,4 +1,3 @@
-import classnames from "classnames"
 import { Button, Input } from "component-library"
 import { Control, Controller, FieldErrors, UseFormSetValue, UseFormWatch } from "react-hook-form"
 import * as z from "zod"
@@ -35,7 +34,6 @@ const Address = ({ control, errors, setValue, watch }: OverviewProps) => {
             <Controller
               name="location.address"
               control={control}
-              rules={{ required: true }}
               render={({ field }) => (
                 <GMapsAutoCompleteSearch
                   {...field}
@@ -46,6 +44,7 @@ const Address = ({ control, errors, setValue, watch }: OverviewProps) => {
                 />
               )}
             />
+            {errors.location?.address && <p className="text-red-500 text-sm">{errors.location.address.message}</p>}
           </div>
         </div>
         <div className="rounded-lg h-96 w-full overflow-hidden">
@@ -62,21 +61,12 @@ const Address = ({ control, errors, setValue, watch }: OverviewProps) => {
             <Controller
               name="location.country"
               control={control}
-              rules={{ required: true }}
               render={({ field }) => (
                 <>
                   <label htmlFor="country" className="block text-sm mb-2">
                     Country
                   </label>
-                  <Input
-                    {...field}
-                    id="country"
-                    placeholder="Select Country"
-                    className={classnames(
-                      { "border-red-500 border-2 focus-visible:ring-0": errors.location?.country },
-                      "text-[#A5A5A5] placeholder:text-[##A5A5A5]"
-                    )}
-                  />
+                  <Input {...field} id="country" placeholder="Select Country" />
                 </>
               )}
             />
@@ -89,18 +79,7 @@ const Address = ({ control, errors, setValue, watch }: OverviewProps) => {
               <Controller
                 name="location.street"
                 control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <Input
-                    {...field}
-                    id="street"
-                    placeholder="Street Name"
-                    className={classnames(
-                      { "border-red-500 border-2 focus-visible:ring-0": errors.location?.street },
-                      "text-[#A5A5A5] placeholder:text-[##A5A5A5]"
-                    )}
-                  />
-                )}
+                render={({ field }) => <Input {...field} id="street" placeholder="Street Name" />}
               />
             </>
           </div>
@@ -109,21 +88,12 @@ const Address = ({ control, errors, setValue, watch }: OverviewProps) => {
             <Controller
               name="location.city"
               control={control}
-              rules={{ required: true }}
               render={({ field }) => (
                 <>
                   <label htmlFor="city" className="block text-sm mb-2">
                     City
                   </label>
-                  <Input
-                    {...field}
-                    id="city"
-                    placeholder="Select City"
-                    className={classnames(
-                      { "border-red-500 border-2 focus-visible:ring-0": errors.location?.city },
-                      "text-[#A5A5A5] placeholder:text-[##A5A5A5]"
-                    )}
-                  />
+                  <Input {...field} id="city" placeholder="Select City" />
                 </>
               )}
             />
@@ -136,17 +106,7 @@ const Address = ({ control, errors, setValue, watch }: OverviewProps) => {
               <Controller
                 name="location.house_number"
                 control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <Input
-                    {...field}
-                    placeholder="House Number"
-                    className={classnames(
-                      { "border-red-500 border-2 focus-visible:ring-0": errors.location?.house_number },
-                      "text-[#A5A5A5] placeholder:text-[##A5A5A5]"
-                    )}
-                  />
-                )}
+                render={({ field }) => <Input {...field} placeholder="House Number" />}
               />
             </>
           </div>
@@ -155,21 +115,12 @@ const Address = ({ control, errors, setValue, watch }: OverviewProps) => {
             <Controller
               name="location.postal_code"
               control={control}
-              rules={{ required: true }}
               render={({ field }) => (
                 <>
                   <label htmlFor="postal_code" className="block text-sm mb-2">
                     Postal Code
                   </label>
-                  <Input
-                    {...field}
-                    id="postal_code"
-                    placeholder="Postal Code"
-                    className={classnames(
-                      { "border-red-500 border-2 focus-visible:ring-0": errors.location?.postal_code },
-                      "text-[#A5A5A5] placeholder:text-[##A5A5A5]"
-                    )}
-                  />
+                  <Input {...field} id="postal_code" placeholder="Postal Code" />
                 </>
               )}
             />
