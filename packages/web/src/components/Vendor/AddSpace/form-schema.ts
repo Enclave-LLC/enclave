@@ -62,7 +62,7 @@ export const FormSchema = z.object({
   terms_and_conditions: z.object({
     cancellation_policy: z.enum(["very_flexible", "flexible", "thirty_day", "sixty_day"]),
     reschedule_policy: z.enum(["allowed", "not_allowed"]),
-    refund_policy: z.string(),
-    space_rules: z.string()
+    refund_policy: z.string().optional(),
+    space_rules: z.string().optional()
   })
 })

@@ -26,7 +26,6 @@ const SpaceConfiguration = ({ control, errors }: OverviewProps) => {
               <Controller
                 name="space_configuration.unit_type"
                 control={control}
-                rules={{ required: true }}
                 render={({ field }) => (
                   <>
                     <RadioGroup.RadioGroup
