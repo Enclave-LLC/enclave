@@ -1,10 +1,19 @@
-import { Button, Calendar } from "component-library"
-import { useState } from "react"
 import { Link } from "react-router-dom"
-import { Card } from "component-library"
+import { Button, Card } from "component-library"
+import EnclaveCalendar from "../../components/EnclaveCalendar"
+import { momentLocalizer } from "react-big-calendar"
+import moment from "moment"
+const localizer = momentLocalizer(moment)
 
 const Dashboard = () => {
-  const [date, setDate] = useState<Date | undefined>(new Date())
+  // const [date, setDate] = useState<Date | undefined>(new Date())
+  const events = [
+    {
+      title: "Kacy's Event",
+      start: new Date(),
+      end: new Date()
+    }
+  ]
   return (
     <>
       <div className="px-6 py-2">
@@ -21,14 +30,8 @@ const Dashboard = () => {
 
           <div className="col-span-7">
             {/* Calendar */}
-            <div className=" h-96">
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                showOutsideDays={false}
-                className=" bg-red-50"
-              />
+            <div className="relative h-96">
+              <EnclaveCalendar localizer={localizer} events={events} />
             </div>
 
             <h2>Your Rental Properties</h2>
