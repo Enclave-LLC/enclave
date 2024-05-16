@@ -1,0 +1,12 @@
+// Override variables or add custom styles
+
+.rbc-event {
+  background-color: $event-bg; // make sure you have defined $secondary-color in _variables.scss or use another color
+}
+
+.rbc-calendar {
+  width: 100%;
+  // Made this absolute so the parent has to be relative then the calendar will be full width
+  // Works now so all good
+  position: absolute;
+}
