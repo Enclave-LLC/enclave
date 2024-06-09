@@ -15,6 +15,7 @@ interface GoogleMapWrapperProps {
 
 function GoogleMapWrapper({ coordinates, style }: GoogleMapWrapperProps): JSX.Element {
   const [coords, setCoords] = useState(center)
+  const [markerIcon, setMarkerIcon] = useState<{ url: string; scaledSize: google.maps.Size } | undefined>(undefined)
 
   useEffect(() => {
     if (coordinates) {
@@ -22,11 +23,16 @@ function GoogleMapWrapper({ coordinates, style }: GoogleMapWrapperProps): JSX.El
     }
   }, [coordinates])
 
+  useEffect(() => {
+    if (window.google && window.google.maps) {
+      setMarkerIcon({
+        url: location,
+        scaledSize: new window.google.maps.Size(50, 50)
+      })
+    }
+  }, [window.google])
+
   const { isLoaded, loadError } = useMaps()
-  const markerIcon = {
-    url: location,
-    scaledSize: new window.google.maps.Size(50, 50)
-  }
 
   if (loadError) return <div>Error loading maps</div>
   if (!isLoaded) return <div>Loading Maps</div>
