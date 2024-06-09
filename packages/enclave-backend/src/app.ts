@@ -1,5 +1,6 @@
 import "dotenv/config"
 import Fastify, { FastifyRequest } from "fastify"
+import cors from "@fastify/cors"
 import "reflect-metadata"
 import { AppDataSource } from "./data-source"
 import { HTTPError } from "./errors"
@@ -41,6 +42,25 @@ async function initialize() {
   const fastify = Fastify({
     logger: true,
     ignoreTrailingSlash: true
+  })
+  const allowedOrigins = ["http://localhost:5173", "https://myenclave.space"]
+
+  fastify.register(cors, {
+    origin: (origin, callback) => {
+      if (!origin) {
+        // Allow requests with no origin (e.g., mobile apps, curl requests)
+        return callback(null, true)
+      }
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        // Allow specific origins
+        return callback(null, true)
+      } else {
+        // Disallow other origins
+        return callback(new Error("Not allowed by CORS"), false)
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 
   fastify.setErrorHandler((error: HTTPError, request, reply) => {
