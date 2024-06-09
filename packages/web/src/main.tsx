@@ -12,6 +12,7 @@ import ListSpace from "./pages/ListSpace.tsx"
 import ErrorPage from "./pages/ErrorPage.tsx"
 import { AddSpace, Dashboard, Vendor } from "./pages/Vendor"
 import { MapsProvider } from "./context/MapContext.tsx"
+import { Toaster } from "component-library"
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <MapsProvider>
         <RouterProvider router={router} />
         <Analytics />
+        <Toaster />
       </MapsProvider>
     </React.StrictMode>
   </>
