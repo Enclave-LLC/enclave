@@ -5,24 +5,45 @@ import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { Enclave } from "../../../enclave-lib/src"
+import { useToast } from "component-library"
 
 const LOCAL_AUTH_KEY = "enclave-auth"
 
+const checkEmailExists = async (email: string) => {
+  const response = await enclaveLib.auth.checkEmail(email)
+  return !response.isAvailable
+}
+
+const enclaveLib = new Enclave({ baseUrl: import.meta.env.VITE_APP_API_URL })
+
 const FormSchema = z.object({
-  first_name: z.string(),
-  last_name: z.string(),
-  email: z.string().email(),
-  password: z.string().min(6)
+  firstname: z.string(),
+  lastname: z.string(),
+  email: z
+    .string()
+    .email()
+    .refine(
+      async (email) => {
+        const isAvailable = await checkEmailExists(email)
+        return isAvailable
+      },
+      {
+        message: "Email already exists"
+      }
+    ),
+  password: z.string().min(6, { message: "Password is too short" })
 })
 
 const ListSpace = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema)
   })
+  const { toast } = useToast()
 
   // Redirect if user is already authenticated
   const navigate = useNavigate()
@@ -33,7 +54,19 @@ const ListSpace = () => {
   }, [navigate])
 
   const submitHandler: SubmitHandler<z.infer<typeof FormSchema>> = (data) => {
-    console.log(data)
+    enclaveLib.auth
+      .register(data.email, data.password, { firstname: data.firstname, lastname: data.lastname })
+      .then(() => {
+        navigate("/app/vendor")
+      })
+      .catch((err) => {
+        console.error(err)
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "An error occurred. Please try again."
+        })
+      })
   }
 
   return (
@@ -111,12 +144,12 @@ const ListSpace = () => {
               <div className=" grid grid-cols-2 gap-6">
                 <div>
                   <Controller
-                    name="first_name"
+                    name="firstname"
                     control={control}
                     render={({ field }) => (
                       <>
                         <Input {...field} id="first_name" placeholder="First Name" />
-                        {errors.first_name && <p className="text-red-500 text-sm">{errors.first_name.message}</p>}
+                        {errors.firstname && <p className="text-red-500 text-sm">{errors.firstname.message}</p>}
                       </>
                     )}
                   />
@@ -124,12 +157,12 @@ const ListSpace = () => {
 
                 <div>
                   <Controller
-                    name="last_name"
+                    name="lastname"
                     control={control}
                     render={({ field }) => (
                       <>
                         <Input {...field} id="last_name" placeholder="Last Name" />
-                        {errors.last_name && <p className="text-red-500 text-sm">{errors.last_name.message}</p>}
+                        {errors.lastname && <p className="text-red-500 text-sm">{errors.lastname.message}</p>}
                       </>
                     )}
                   />
@@ -162,7 +195,7 @@ const ListSpace = () => {
                 </div>
               </div>
 
-              <Button type="submit" className="w-full">
+              <Button type="submit" loading={isSubmitting} disabled={isSubmitting} className="w-full">
                 Create Account
               </Button>
 
