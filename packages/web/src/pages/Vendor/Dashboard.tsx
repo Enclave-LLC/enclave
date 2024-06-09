@@ -3,6 +3,7 @@ import { Button, Card } from "component-library"
 import EnclaveCalendar from "../../components/EnclaveCalendar"
 import { momentLocalizer } from "react-big-calendar"
 import moment from "moment"
+import GoogleMapWrapper from "../../components/GoogleMapWrapper"
 const localizer = momentLocalizer(moment)
 
 const Dashboard = () => {
@@ -24,24 +25,36 @@ const Dashboard = () => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-12 gap-12 w-full min-h-screen">
+        <div className="grid grid-cols-12 gap-12 w-full">
           {/* Map with listed spaces */}
-          <div className="col-span-5"></div>
+          <div className="col-span-5" style={{ height: "calc(100vh - 90px)" }}>
+            <GoogleMapWrapper
+              coordinates={{
+                lat: 5.5593,
+                lng: 0.1974
+              }}
+              style={{ width: "100%", height: "100%" }}
+            />
+          </div>
 
-          <div className="col-span-7">
+          <div className="col-span-7 overflow-y-auto p-2" style={{ height: "calc(100vh - 90px)" }}>
             {/* Calendar */}
-            <div className="relative h-96">
+            <div className="relative h-96 mb-6">
               <EnclaveCalendar localizer={localizer} events={events} />
             </div>
 
-            <h2>Your Rental Properties</h2>
+            <h2 className="mb-2 font-medium text-2xl">Your Rental Properties</h2>
             <div className="grid grid-cols-2 gap-6">
               {[0, 1, 2, 3].map(() => (
                 <div>
                   <Card.Card>
                     <Card.CardHeader>
-                      Image Here
-                      <Card.CardDescription className="text-primary">Property Name</Card.CardDescription>
+                      <div className=" h-[200px] rounded-lg overflow-hidden">
+                        <img className="h-full w-full" src="https://via.placeholder.com/1000x200" alt="property" />
+                      </div>
+                      <Card.CardDescription className="text-primary text-lg font-medium">
+                        Property Name
+                      </Card.CardDescription>
                     </Card.CardHeader>
                     <Card.CardContent>
                       <p>

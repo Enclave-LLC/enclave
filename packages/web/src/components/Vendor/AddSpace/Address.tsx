@@ -48,7 +48,7 @@ const Address = ({ control, errors, setValue, watch }: OverviewProps) => {
           </div>
         </div>
         <div className="rounded-lg h-96 w-full overflow-hidden">
-          <GoogleMapWrapper coordinates={watch("location.coordinates")} />
+          <GoogleMapWrapper coordinates={watch("location.coordinates")} style={{ width: "100%", height: "400px" }} />
         </div>
       </div>
 

@@ -3,21 +3,17 @@ import { useMaps } from "../context/MapContext"
 import location from "../assets/png/location.png"
 import { useEffect, useState } from "react"
 
-const containerStyle = {
-  width: "100%",
-  height: "400px"
-}
-
 const center = {
   lat: 7.946527,
   lng: -1.023194
 }
 
 interface GoogleMapWrapperProps {
+  style?: React.CSSProperties
   coordinates: { lat: number; lng: number }
 }
 
-function GoogleMapWrapper({ coordinates }: GoogleMapWrapperProps): JSX.Element {
+function GoogleMapWrapper({ coordinates, style }: GoogleMapWrapperProps): JSX.Element {
   const [coords, setCoords] = useState(center)
 
   useEffect(() => {
@@ -36,7 +32,7 @@ function GoogleMapWrapper({ coordinates }: GoogleMapWrapperProps): JSX.Element {
   if (!isLoaded) return <div>Loading Maps</div>
 
   return (
-    <GoogleMap mapContainerStyle={containerStyle} center={coords} zoom={10}>
+    <GoogleMap mapContainerStyle={style} center={coords} zoom={10}>
       <MarkerF position={coords} icon={markerIcon} />
     </GoogleMap>
   )
