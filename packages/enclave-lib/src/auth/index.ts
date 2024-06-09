@@ -27,7 +27,7 @@ export default class AuthLib {
 
   async register(email: string, password: string, userData: UserData) {
     const res = await this.#customFetch
-      .post<AuthUser>(UriPaths.register, { email, password, userData })
+      .post<AuthUser>(UriPaths.register, { email, password, ...userData })
       .then((res) => res.data)
     setLocalAuth(res)
     return res
