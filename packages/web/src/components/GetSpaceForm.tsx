@@ -21,7 +21,7 @@ const FormSchema = z.object({
   guests: z.string(),
   spaceType: z.string(),
   location: z.string(),
-  manual_location: z.string()
+  manual_location: z.string().optional()
 })
 
 const GetSpaceForm = () => {
@@ -38,7 +38,7 @@ const GetSpaceForm = () => {
   } = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema)
   })
-
+  
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset({ email: "", guests: "", location: "", phone: "", spaceType: "", manual_location: "" })
@@ -154,7 +154,6 @@ const GetSpaceForm = () => {
                 <Controller
                   name="manual_location"
                   control={control}
-                  rules={{ required: true }}
                   render={({ field }) => (
                     <Input
                       {...field}
