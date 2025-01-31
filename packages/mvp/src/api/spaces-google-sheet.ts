@@ -34,5 +34,15 @@ export async function createBooking(payload: BookingPayload) {
   })
 }
 
+export async function addCity(city: string) {
+  await axios({
+    method: "POST",
+    url: `https://sheetdb.io/api/v1/${import.meta.env.VITE_SHEETDB_API_ID}`,
+    data: {
+      city
+    }
+  })
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // export async function searchSpaces(q: string) {}

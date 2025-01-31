@@ -4,13 +4,36 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import accra from "../assets/jpg/accra.jpg"
 import { Badge } from "@/components/ui/badge"
+import { addCity } from "@/api/spaces-google-sheet"
+import { useToast } from "@/hooks/use-toast"
 
 const Index = () => {
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState<string>("")
+  const [loadingAddCity, setLoadingAddCity] = useState(false)
+  const [newCity, setNewCity] = useState("")
+  const { toast } = useToast()
 
   const handleSpaceSearch = () => {
     navigate(`/spaces?q=${searchQuery}`)
+  }
+
+  const addYourCity = async () => {
+    setLoadingAddCity(true)
+    try {
+      await addCity(newCity)
+      toast({
+        title: "Request Received",
+        description: "We have received your request 🎉. Thank you.",
+      })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+    } catch (e: any) {
+      toast({
+        title: "Request Failed",
+        description: "We couldn't receive your request. Please try again.",
+      })
+    }
+    setLoadingAddCity(false)
   }
 
   return (
@@ -76,8 +99,11 @@ const Index = () => {
                 className=" bg-white"
                 button={{
                   label: "Submit",
+                  loading: loadingAddCity,
+                  disabled: loadingAddCity,
+                  onClick: addYourCity
                 }}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => setNewCity(e.target.value)}
                 showLocationIcon
                 placeholder="What's the name of your city" />
             </div>
