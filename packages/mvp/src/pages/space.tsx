@@ -93,7 +93,7 @@ const Space = () => {
   })
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = () => {
     setSubmitting(true)
     // Submit values to google sheet values
     // createBooking(values)

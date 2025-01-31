@@ -35,4 +35,4 @@ export async function createBooking(payload: BookingPayload) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function searchSpaces(q: string) {}
+// export async function searchSpaces(q: string) {}
