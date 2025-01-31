@@ -73,10 +73,12 @@ const Index = () => {
           <div className="flex flex-col mt-6 gap-3 md:gap-6 md:grid h-full">
             <div className="rounded-xl overflow-hidden relative">
               <Badge className="absolute top-0 mt-2 ml-2" variant="secondary" >100+ Accra</Badge>
+              <Link to="/spaces">
               <img
                 src={accra}
                 className="w-full h-full cursor-pointer object-cover transition duration-300 ease-in-out hover:scale-110 hover:blur-sm"
-              />
+                />
+              </Link>
               {/* <p className="absolute bottom-0 text-right w-full p-1 text-white">
                 Photo by <a className="text-blue-700" href="https://unsplash.com/@nana_kwandoh?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Nana Kwandoh</a> on <a className="text-blue-700" href="https://unsplash.com/photos/a-building-with-three-stars-on-top-of-it-9ieZ4ooO4-4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
               </p> */}
