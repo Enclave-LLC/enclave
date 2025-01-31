@@ -276,7 +276,7 @@ const Waitlist = () => {
             </div>
             <div className="flex justify-center">
               <Button variant="secondary" className="my-4">
-                <a href="mailto:hi@myenclave.space">Send Us a Mail</a>
+                
               </Button>
             </div>
             <div className="flex gap-6 justify-center">
