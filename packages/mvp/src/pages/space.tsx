@@ -32,14 +32,17 @@ function DatePicker({
   selected,
   onSelect,
 }: {
-  selected?: Date;
-  onSelect: (date: Date | undefined) => void;
+  selected?: Date
+  onSelect: (date: Date | undefined) => void
 }) {
+  const [open, setOpen] = useState(false)
+
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
+          onClick={() => setOpen((prev) => !prev)}
           className={cn(
             "w-full justify-start text-left font-normal bg-inherit",
             !selected && "text-muted-foreground"
@@ -53,8 +56,11 @@ function DatePicker({
         <Calendar
           disabled={{ before: new Date() }}
           mode="single"
-          selected={selected} // Directly use the `selected` prop
-          onSelect={onSelect} // Notify parent on date change
+          selected={selected}
+          onSelect={(date) => {
+            onSelect(date) // Notify parent
+            setOpen(false) // Close popover
+          }}
           initialFocus
         />
       </PopoverContent>
