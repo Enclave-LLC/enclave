@@ -51,6 +51,7 @@ function DatePicker({
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
+          disabled={{ before: new Date() }}
           mode="single"
           selected={selected} // Directly use the `selected` prop
           onSelect={onSelect} // Notify parent on date change
