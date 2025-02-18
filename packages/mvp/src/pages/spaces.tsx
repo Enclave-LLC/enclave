@@ -51,7 +51,6 @@ const Spaces = () => {
   //pagination end
 
 
-
   const handleCheckboxChange = (checked: boolean, type: string) => {
     setCheckedValues((prev) =>
       checked ? [...prev, type] : prev.filter((value) => value !== type)
