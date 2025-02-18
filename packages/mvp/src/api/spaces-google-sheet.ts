@@ -9,6 +9,7 @@ export async function getSpaces() {
     // url: `https://sheetdb.io/api/v1/${import.meta.env.VITE_SHEETDB_API_ID}`,
     url: import.meta.env.VITE_SUPABASE_SPACES_CSV
   })
+
   let spaces: Space[] = await csv().fromString(sheets.data)
   spaces = spaces.map(space => {
     const rate = parseFloat(space["Rates in Ghana Cedis"].replace(",", ""))
