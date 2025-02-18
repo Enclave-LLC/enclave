@@ -9,6 +9,9 @@ import { SlidersHorizontal } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 
+
+
+
 const Spaces = () => {
   const [searchParams] = useSearchParams()
   const [query, setQuery] = useState("")
@@ -24,6 +27,30 @@ const Spaces = () => {
   const [searchLocation, setSearchLocation] = useState<string>("")
 
   const [uniqueVenueTypes, setUniqueVenueTypes] = useState<string[]>([])
+
+  // Pagination start
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 12;
+  const totalPages = Math.ceil(filteredSpaces.length / itemsPerPage)
+  const visiblePageCount = 5; 
+
+  //Start and end of visible page range
+  let startPage = Math.max(1, currentPage - Math.floor(visiblePageCount / 2))
+  const endPage = Math.min(totalPages, startPage + visiblePageCount - 1)
+   
+  if(endPage - startPage + 1 < visiblePageCount){
+    startPage = Math.max(1, endPage - visiblePageCount + 1)
+  }
+  const pages = Array.from({length: endPage - startPage + 1},(_,i) => startPage + i);
+
+  //Get current page items
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = filteredSpaces.slice(indexOfFirstItem, indexOfLastItem) 
+
+  //pagination end
+
+
 
   const handleCheckboxChange = (checked: boolean, type: string) => {
     setCheckedValues((prev) =>
@@ -93,9 +120,11 @@ const Spaces = () => {
     setQuery(q)
   }, [q])
 
+
   return (
     <div className="flex justify-center">
       <div className="px-4 md:px-0 w-full md:w-[70%] lg:w-[60%]">
+       
         {/* Filter */}
         <div className="p-2 shadow my-4 w-full sticky top-0 bg-white md:flex md:justify-between">
           <div className="flex gap-2">
@@ -176,12 +205,12 @@ const Spaces = () => {
             </PopoverContent>
           </Popover>
         </div>
-
+          
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {
-            filteredSpaces.length ?
+            currentItems.length ?
               (
-                filteredSpaces.map((space, idx) => (
+                currentItems.map((space, idx) => (
                   <SpaceCard key={idx} data={space} />
                 ))
               ):
@@ -194,6 +223,21 @@ const Spaces = () => {
               )
           }
         </div>
+
+       
+
+       {/* Pagination */}
+       <div className="flex justify-center mt-4 p-2">
+        <div className="border shadow rounded p-1 space-x-1">
+          <Button  label="< Previous" variant={"link"} size={"sm"} disabled={currentPage === 1} onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}/>
+
+            {pages.map((num) => <Button key={num} onClick={() => setCurrentPage(num)} variant={ currentPage == num ? "link" :  "ghost"} label={`${num}`} size={"sm"}  />)}
+
+          <Button  label="Next >" variant={"link"} size={"sm"} disabled={currentPage === totalPages} onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}/>
+        </div>
+    
+       </div>
+     
       </div>
     </div>
   )
