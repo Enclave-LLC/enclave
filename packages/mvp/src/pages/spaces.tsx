@@ -47,7 +47,6 @@ const Spaces = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentItems = filteredSpaces.slice(indexOfFirstItem, indexOfLastItem) 
-
   //pagination end
 
 
@@ -59,13 +58,15 @@ const Spaces = () => {
 
   const searchWithFilters = useCallback(() => {
     let results = spaces
-
     if (searchLocation) {
       results = spaces.filter(space => {
         const words = searchLocation.split(/[^A-Za-z]/)
+    
         return (
-          words.some(word => space["Location of Event Space (GPS location)"]?.toLowerCase()?.includes(word.toLowerCase())) ||
-          words.some(word => space["Name of Event Space"]?.toLowerCase()?.includes(word.toLowerCase())) ||
+          words.some(word => space["Location of Event Space (GPS location)"]?.toLowerCase()?.includes(word.toLowerCase())) 
+          ||
+          words.some(word => space["Name of Event Space"]?.toLowerCase()?.includes(word.toLowerCase())) 
+          ||
           words.some(word => "Accra".toLowerCase()?.includes(word.toLowerCase()))
         )
       })
@@ -90,7 +91,6 @@ const Spaces = () => {
           return !isNaN(rate) && rate <= parseFloat(maxPrice)
         })
     }
-
     setFilteredSpaces(results)
   }, [checkedValues, maxPrice, minPrice, searchLocation, spaces])
 
@@ -103,7 +103,6 @@ const Spaces = () => {
         
         if (query) {
           setSearchLocation(query)
-          searchWithFilters()
         }
 
         const venueTypes = res.flatMap(spaces => spaces["Venue Type"].split(", ").map(type => type.trim()).filter(type => type))
@@ -113,7 +112,7 @@ const Spaces = () => {
       }
     }
     fetchData()
-  }, [query, searchWithFilters])
+  }, [query])
 
   useEffect(() => {
     setQuery(q)
