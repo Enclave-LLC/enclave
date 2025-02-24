@@ -11,12 +11,10 @@ import { useSearchParams } from "react-router-dom"
 
 
 
-
 const Spaces = () => {
   const [searchParams] = useSearchParams()
   const [query, setQuery] = useState("")
   const q = searchParams.get("q") || ""
-
 
   const [spaces, setSpaces] = useState<Space[]>([])
   const [filteredSpaces, setFilteredSpaces] = useState<Space[]>([])
@@ -55,7 +53,6 @@ const Spaces = () => {
       checked ? [...prev, type] : prev.filter((value) => value !== type)
     )
   }
-
 
   const searchWithFilters = useCallback(() => {
     let results = spaces
@@ -122,15 +119,12 @@ const Spaces = () => {
    }
   }, [query])
 
-
   useEffect(() => {
     if(query){
       searchWithFilters()
     }
   },[query, searchWithFilters])
 
-
-  //sets q
   useEffect(() => {
     setQuery(q)    
  }, [q])

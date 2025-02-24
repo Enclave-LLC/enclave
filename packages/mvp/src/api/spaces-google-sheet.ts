@@ -8,12 +8,6 @@ interface GetSpacesOptions {
 
 export async function getSpaces(options?: GetSpacesOptions): Promise<Space[]> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // const sheets = await axios({
-  //   method: "GET",
-  //   // url: `https://sheetdb.io/api/v1/${import.meta.env.VITE_SHEETDB_API_ID}`,
-  //   url: import.meta.env.VITE_SUPABASE_SPACES_CSV,
-
-  // })
 
   const sheets = await axios({
     method: "GET",
