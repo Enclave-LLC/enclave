@@ -15,6 +15,7 @@ const Index = () => {
   const { toast } = useToast()
 
   const handleSpaceSearch = () => {
+    //console.log(searchQuery)
     navigate(`/spaces?q=${searchQuery}`)
   }
 
@@ -50,6 +51,7 @@ const Index = () => {
             }}
             onChange={(e) => setSearchQuery(e.target.value)}
             showLocationIcon 
+          
             placeholder="Describe the event or space..."  />
         </div>
       </div>

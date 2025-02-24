@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Space } from "@/types/spaces"
 import { SlidersHorizontal } from "lucide-react"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect,useState } from "react"
 import { useSearchParams } from "react-router-dom"
 
 
@@ -16,6 +16,7 @@ const Spaces = () => {
   const [searchParams] = useSearchParams()
   const [query, setQuery] = useState("")
   const q = searchParams.get("q") || ""
+
 
   const [spaces, setSpaces] = useState<Space[]>([])
   const [filteredSpaces, setFilteredSpaces] = useState<Space[]>([])
@@ -49,19 +50,18 @@ const Spaces = () => {
   const currentItems = filteredSpaces.slice(indexOfFirstItem, indexOfLastItem) 
   //pagination end
 
-
   const handleCheckboxChange = (checked: boolean, type: string) => {
     setCheckedValues((prev) =>
       checked ? [...prev, type] : prev.filter((value) => value !== type)
     )
   }
 
+
   const searchWithFilters = useCallback(() => {
     let results = spaces
     if (searchLocation) {
       results = spaces.filter(space => {
         const words = searchLocation.split(/[^A-Za-z]/)
-    
         return (
           words.some(word => space["Location of Event Space (GPS location)"]?.toLowerCase()?.includes(word.toLowerCase())) 
           ||
@@ -91,32 +91,49 @@ const Spaces = () => {
           return !isNaN(rate) && rate <= parseFloat(maxPrice)
         })
     }
+    
     setFilteredSpaces(results)
   }, [checkedValues, maxPrice, minPrice, searchLocation, spaces])
 
   useEffect(() => {
+    const controller = new AbortController()
     async function fetchData() {
       try {
-        const res = await getSpaces()
+        const res = await getSpaces({signal : controller.signal})
+
         setSpaces(res)
         setFilteredSpaces(res)
-        
+
         if (query) {
           setSearchLocation(query)
         }
 
         const venueTypes = res.flatMap(spaces => spaces["Venue Type"].split(", ").map(type => type.trim()).filter(type => type))
         setUniqueVenueTypes([...new Set<string>(venueTypes)])
+
       } catch (err: unknown) {
         console.log(err)
       }
     }
+   
     fetchData()
+   return () => {
+    controller.abort()
+   }
   }, [query])
 
+
   useEffect(() => {
-    setQuery(q)
-  }, [q])
+    if(query){
+      searchWithFilters()
+    }
+  },[query, searchWithFilters])
+
+
+  //sets q
+  useEffect(() => {
+    setQuery(q)    
+ }, [q])
 
 
   return (
@@ -126,7 +143,7 @@ const Spaces = () => {
         {/* Filter */}
         <div className="p-2 shadow my-4 w-full sticky top-0 bg-white md:flex md:justify-between">
           <div className="flex gap-2">
-            <Input h={0} className="h-10" showLocationIcon placeholder="Search for location" defaultValue={query} onChange={(e) => setSearchLocation(e.target.value)} />
+            <Input h={0} className="h-10" showLocationIcon placeholder="Search for location" defaultValue={query} onChange={(e) => setQuery(e.target.value)} />
             <Button size="lg" onClick={searchWithFilters} >Search</Button>
           </div>
           
@@ -171,7 +188,7 @@ const Spaces = () => {
                       id="min-price"
                       type="number"
                       placeholder="0"
-                      value={minPrice}
+                      defaultValue={minPrice}
                       min={0}
                       onChange={(e) => setMinPrice(e.target.value)}
                       
@@ -188,7 +205,7 @@ const Spaces = () => {
                       id="max-price"
                       type="number"
                       placeholder="10000"
-                      value={maxPrice}
+                      defaultValue={maxPrice}
                       max={0}
                       onChange={(e) => setMaxPrice(e.target.value)}
                       
