@@ -15,7 +15,6 @@ const Index = () => {
   const { toast } = useToast()
 
   const handleSpaceSearch = () => {
-    //console.log(searchQuery)
     navigate(`/spaces?q=${searchQuery}`)
   }
 
