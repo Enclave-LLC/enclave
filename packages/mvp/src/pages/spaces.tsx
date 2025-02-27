@@ -5,7 +5,7 @@ import SpaceCard from "@/components/SpaceCard"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Space } from "@/types/spaces"
-import { SlidersHorizontal } from "lucide-react"
+import { Loader2, SlidersHorizontal } from "lucide-react"
 import { useCallback, useEffect,useState } from "react"
 import { useSearchParams } from "react-router-dom"
 
@@ -14,6 +14,7 @@ import { useSearchParams } from "react-router-dom"
 const Spaces = () => {
   const [searchParams] = useSearchParams()
   const [query, setQuery] = useState("")
+  const [loading, setLoading] = useState(true)
   const q = searchParams.get("q") || ""
 
   const [spaces, setSpaces] = useState<Space[]>([])
@@ -88,14 +89,17 @@ const Spaces = () => {
           return !isNaN(rate) && rate <= parseFloat(maxPrice)
         })
     }
-    
+    console.log("results", results.length)
     setFilteredSpaces(results)
   }, [checkedValues, maxPrice, minPrice, searchLocation, spaces])
 
   useEffect(() => {
     const controller = new AbortController()
+
     async function fetchData() {
       try {
+
+        
         const res = await getSpaces({signal : controller.signal})
 
         setSpaces(res)
@@ -104,6 +108,8 @@ const Spaces = () => {
         if (query) {
           setSearchLocation(query)
         }
+
+        setLoading(!true)
 
         const venueTypes = res.flatMap(spaces => spaces["Venue Type"].split(", ").map(type => type.trim()).filter(type => type))
         setUniqueVenueTypes([...new Set<string>(venueTypes)])
@@ -216,20 +222,16 @@ const Spaces = () => {
         </div>
           
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {
-            currentItems.length ?
-              (
-                currentItems.map((space, idx) => (
-                  <SpaceCard key={idx} data={space} />
-                ))
-              ):
-              (
-                <>
-                  <div>
-                    No space available
-                  </div>
-                </>
-              )
+           {
+              loading 
+            ? 
+              ( <div> <Loader2 className="size-10 animate-spin stroke-primary" /> </div> )
+            : 
+              currentItems.length
+            ? 
+              (currentItems.map((space, idx) => ( <SpaceCard key={idx} data={space} />))) 
+            :
+              (<div>No space available</div>)
           }
         </div>
 
