@@ -19,13 +19,11 @@ const Spaces = () => {
 
   const [spaces, setSpaces] = useState<Space[]>([])
   const [filteredSpaces, setFilteredSpaces] = useState<Space[]>([])
-
   const [checkedValues, setCheckedValues] = useState<string[]>([])
 
   const [minPrice, setMinPrice] = useState<string>("")
   const [maxPrice, setMaxPrice] = useState<string>("")
   const [searchLocation, setSearchLocation] = useState<string>("")
-
   const [uniqueVenueTypes, setUniqueVenueTypes] = useState<string[]>([])
 
   // Pagination start
@@ -109,7 +107,7 @@ const Spaces = () => {
           setSearchLocation(query)
         }
 
-        setLoading(!true)
+        setLoading(false)
 
         const venueTypes = res.flatMap(spaces => spaces["Venue Type"].split(", ").map(type => type.trim()).filter(type => type))
         setUniqueVenueTypes([...new Set<string>(venueTypes)])
