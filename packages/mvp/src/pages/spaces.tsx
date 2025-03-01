@@ -87,7 +87,6 @@ const Spaces = () => {
           return !isNaN(rate) && rate <= parseFloat(maxPrice)
         })
     }
-    console.log("results", results.length)
     setFilteredSpaces(results)
   }, [checkedValues, maxPrice, minPrice, searchLocation, spaces])
 
